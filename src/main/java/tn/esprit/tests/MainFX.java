@@ -19,7 +19,7 @@ public class MainFX extends Application {
             scene.getStylesheets().add(getClass().getResource("/styles/styles.css").toExternalForm());
 
             // Configurer et afficher la fenêtre principale
-            primaryStage.setTitle("Gestion des Assurances");
+            primaryStage.setTitle("DOC4U");
             primaryStage.setScene(scene);
             primaryStage.setMaximized(true);
             primaryStage.show();
