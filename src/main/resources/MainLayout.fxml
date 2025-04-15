@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Accordion?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.esprit.Controllers.MainLayoutController">
+    <!-- Sidebar à gauche -->
+    <left>
+        <VBox style="-fx-background-color: #1a2035; -fx-padding: 0;" prefWidth="240.0">
+            <!-- Logo en haut de la sidebar -->
+            <HBox alignment="CENTER_LEFT" style="-fx-background-color: #1a2035; -fx-padding: 15px;" spacing="10">
+                <ImageView fitHeight="40.0" fitWidth="40.0" preserveRatio="true">
+                    <Image url="@images/logo.png"/>
+                </ImageView>
+                <Label text="DOC4U" textFill="WHITE">
+                    <font>
+                        <Font name="System Bold" size="18.0" />
+                    </font>
+                </Label>
+            </HBox>
+
+            <Separator style="-fx-background-color: #2d3446;"/>
+
+            <!-- Menu de navigation -->
+            <ScrollPane fitToWidth="true" hbarPolicy="NEVER" style="-fx-background-color: transparent; -fx-background: transparent;">
+                <content>
+                    <VBox spacing="5.0" style="-fx-background-color: #1a2035; -fx-padding: 10;">
+
+                        <Button fx:id="btnDashboard" maxWidth="Infinity" styleClass="sidebar-button"
+                                style="-fx-background-color: transparent; -fx-text-fill: white; -fx-alignment: CENTER_LEFT; -fx-padding: 10 15;"
+                                text="Tableau de bord" onAction="#handleNavigateToDashboard">
+                            <graphic>
+                                <HBox spacing="10">
+                                    <Label text="🏠" textFill="WHITE"/>
+                                </HBox>
+                            </graphic>
+                        </Button>
+
+                        <Button fx:id="btnUsers" maxWidth="Infinity" styleClass="sidebar-button"
+                                style="-fx-background-color: transparent; -fx-text-fill: white; -fx-alignment: CENTER_LEFT; -fx-padding: 10 15;"
+                                text="Utilisateurs" onAction="#handleNavigateToUsers">
+                            <graphic>
+                                <HBox spacing="10">
+                                    <Label text="👥" textFill="WHITE"/>
+                                </HBox>
+                            </graphic>
+                        </Button>
+
+                        <Button fx:id="btnReservations" maxWidth="Infinity" styleClass="sidebar-button"
+                                style="-fx-background-color: transparent; -fx-text-fill: white; -fx-alignment: CENTER_LEFT; -fx-padding: 10 15;"
+                                text="Réservations" onAction="#handleNavigateToReservations">
+                            <graphic>
+                                <HBox spacing="10">
+                                    <Label text="📅" textFill="WHITE"/>
+                                </HBox>
+                            </graphic>
+                        </Button>
+
+                        <Button fx:id="btnConsultations" maxWidth="Infinity" styleClass="sidebar-button"
+                                style="-fx-background-color: transparent; -fx-text-fill: white; -fx-alignment: CENTER_LEFT; -fx-padding: 10 15;"
+                                text="Consultations" onAction="#handleNavigateToConsultations">
+                            <graphic>
+                                <HBox spacing="10">
+                                    <Label text="🎥" textFill="WHITE"/>
+                                </HBox>
+                            </graphic>
+                        </Button>
+
+                        <Button fx:id="btnMedicalInstructions" maxWidth="Infinity" styleClass="sidebar-button"
+                                style="-fx-background-color: transparent; -fx-text-fill: white; -fx-alignment: CENTER_LEFT; -fx-padding: 10 15;"
+                                text="Consignes Médicales" onAction="#handleNavigateToMedicalInstructions">
+                            <graphic>
+                                <HBox spacing="10">
+                                    <Label text="🏥" textFill="WHITE"/>
+                                </HBox>
+                            </graphic>
+                        </Button>
+
+                        <!-- Menu déroulant pour Remboursements -->
+                        <Accordion>
+                            <panes>
+                                <TitledPane fx:id="remboursementPanel" text="Remboursements" style="-fx-text-fill: white; -fx-background-color: transparent;">
+                                    <graphic>
+                                        <Label text="💰" textFill="WHITE"/>
+                                    </graphic>
+                                    <content>
+                                        <VBox spacing="5">
+                                            <Button fx:id="btnRemboursements" maxWidth="Infinity" styleClass="sidebar-button"
+                                                    style="-fx-background-color: transparent; -fx-text-fill: white; -fx-alignment: CENTER_LEFT; -fx-padding: 10 15;"
+                                                    text="Gestion des remboursements" onAction="#handleNavigateToReimbursements">
+                                                <graphic>
+                                                    <HBox spacing="10">
+                                                        <Label text="💸" textFill="WHITE"/>
+                                                    </HBox>
+                                                </graphic>
+                                            </Button>
+                                            <Button fx:id="btnReportsReimbursements" maxWidth="Infinity" styleClass="sidebar-button"
+                                                    style="-fx-background-color: transparent; -fx-text-fill: white; -fx-alignment: CENTER_LEFT; -fx-padding: 10 15;"
+                                                    text="Rapports des remboursements" onAction="#handleNavigateToReimbursementReports">
+                                                <graphic>
+                                                    <HBox spacing="10">
+                                                        <Label text="📊" textFill="WHITE"/>
+                                                    </HBox>
+                                                </graphic>
+                                            </Button>
+                                        </VBox>
+                                    </content>
+                                </TitledPane>
+                            </panes>
+                        </Accordion>
+
+                        <!-- Menu déroulant pour Assurance -->
+                        <Accordion>
+                            <panes>
+                                <TitledPane fx:id="assurancePanel" text="Assurance" style="-fx-text-fill: white; -fx-background-color: transparent;">
+                                    <graphic>
+                                        <Label text="🔰" textFill="WHITE"/>
+                                    </graphic>
+                                    <content>
+                                        <VBox spacing="5">
+                                            <Button fx:id="btnAssuranceList" maxWidth="Infinity" styleClass="sidebar-button"
+                                                    style="-fx-background-color: transparent; -fx-text-fill: white; -fx-alignment: CENTER_LEFT; -fx-padding: 10 15;"
+                                                    text="Liste des Assurances" onAction="#handleNavigateToAssuranceList">
+                                                <graphic>
+                                                    <HBox spacing="10">
+                                                        <Label text="📋" textFill="WHITE"/>
+                                                    </HBox>
+                                                </graphic>
+                                            </Button>
+                                            <Button fx:id="btnNouvelleAssurance" maxWidth="Infinity" styleClass="sidebar-button"
+                                                    style="-fx-background-color: transparent; -fx-text-fill: white; -fx-alignment: CENTER_LEFT; -fx-padding: 10 15;"
+                                                    text="Nouvelle Assurance" onAction="#handleNavigateToAssuranceForm">
+                                                <graphic>
+                                                    <HBox spacing="10">
+                                                        <Label text="➕" textFill="WHITE"/>
+                                                    </HBox>
+                                                </graphic>
+                                            </Button>
+                                        </VBox>
+                                    </content>
+                                </TitledPane>
+                            </panes>
+                        </Accordion>
+                    </VBox>
+                </content>
+            </ScrollPane>
+        </VBox>
+    </left>
+
+    <!-- Contenu principal avec navbar et zone de contenu -->
+    <center>
+        <BorderPane>
+            <!-- Navbar en haut -->
+            <top>
+                <HBox style="-fx-background-color: white; -fx-padding: 10px; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10, 0, 0, 1);"
+                      alignment="CENTER_LEFT" spacing="20.0">
+                    <children>
+                        <Button style="-fx-background-color: transparent;">
+                            <graphic>
+                                <Label text="≡" style="-fx-font-size: 18px;"/>
+                            </graphic>
+                        </Button>
+
+                        <TextField promptText="Rechercher..." prefWidth="300" style="-fx-background-radius: 20; -fx-border-radius: 20;"/>
+
+                        <Region HBox.hgrow="ALWAYS" />
+
+                        <Button style="-fx-background-color: transparent;">
+                            <graphic>
+                                <Label text="🔔" style="-fx-font-size: 16px;"/>
+                            </graphic>
+                        </Button>
+
+                        <Button style="-fx-background-color: transparent;">
+                            <graphic>
+                                <Label text="✉️" style="-fx-font-size: 16px;"/>
+                            </graphic>
+                        </Button>
+
+                        <Separator orientation="VERTICAL" />
+
+                        <HBox alignment="CENTER" spacing="5">
+                            <Label text="👤" style="-fx-font-size: 20px;"/>
+                            <Label fx:id="lblUserInfo" text="Utilisateur" />
+                        </HBox>
+                    </children>
+                </HBox>
+            </top>
+
+            <!-- Zone de contenu principale -->
+            <center>
+                <VBox>
+                    <!-- Titre de la page -->
+                    <HBox style="-fx-background-color: #f2f4f8; -fx-padding: 15px;">
+                        <children>
+                            <Label fx:id="pageTitleLabel" text="Tableau de bord" style="-fx-font-size: 20; -fx-font-weight: bold;"/>
+                        </children>
+                    </HBox>
+
+                    <!-- Contenu de la page -->
+                    <StackPane fx:id="contentArea" style="-fx-background-color: #f2f4f8; -fx-padding: 15px;" VBox.vgrow="ALWAYS">
+                        <!-- Le contenu sera chargé dynamiquement ici -->
+                    </StackPane>
+                </VBox>
+            </center>
+        </BorderPane>
+    </center>
+</BorderPane>
