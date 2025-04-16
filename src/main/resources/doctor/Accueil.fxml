@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
+
+<VBox spacing="20.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+    <padding>
+        <Insets top="20.0" right="20.0" bottom="20.0" left="20.0"/>
+    </padding>
+
+    <!-- En-tête de la page -->
+    <HBox styleClass="page-header">
+        <Label text="Tableau de bord" styleClass="page-title">
+            <font>
+                <Font name="System Bold" size="24.0"/>
+            </font>
+        </Label>
+    </HBox>
+
+    <!-- Cartes statistiques -->
+    <HBox spacing="20.0">
+        <!-- Carte: Patients du jour -->
+        <VBox styleClass="stat-card" HBox.hgrow="ALWAYS">
+            <HBox alignment="CENTER_LEFT" spacing="10.0">
+                <FontIcon iconLiteral="fas-user-injured" iconSize="24" iconColor="#2980b9"/>
+                <VBox>
+                    <Label text="Patients aujourd'hui" styleClass="stat-title"/>
+                    <Label text="8" styleClass="stat-value"/>
+                </VBox>
+            </HBox>
+        </VBox>
+
+        <!-- Carte: Consultations -->
+        <VBox styleClass="stat-card" HBox.hgrow="ALWAYS">
+            <HBox alignment="CENTER_LEFT" spacing="10.0">
+                <FontIcon iconLiteral="fas-stethoscope" iconSize="24" iconColor="#27ae60"/>
+                <VBox>
+                    <Label text="Consultations" styleClass="stat-title"/>
+                    <Label text="5" styleClass="stat-value"/>
+                </VBox>
+            </HBox>
+        </VBox>
+
+        <!-- Carte: Rendez-vous à venir -->
+        <VBox styleClass="stat-card" HBox.hgrow="ALWAYS">
+            <HBox alignment="CENTER_LEFT" spacing="10.0">
+                <FontIcon iconLiteral="fas-calendar-check" iconSize="24" iconColor="#f39c12"/>
+                <VBox>
+                    <Label text="Rendez-vous à venir" styleClass="stat-title"/>
+                    <Label text="12" styleClass="stat-value"/>
+                </VBox>
+            </HBox>
+        </VBox>
+    </HBox>
+
+    <!-- Prochains rendez-vous -->
+    <VBox spacing="10.0" styleClass="section-container">
+        <Label text="Prochains rendez-vous" styleClass="section-title">
+            <font>
+                <Font name="System Bold" size="16.0"/>
+            </font>
+        </Label>
+
+        <TableView VBox.vgrow="ALWAYS">
+            <columns>
+                <TableColumn text="Horaire" prefWidth="100.0"/>
+                <TableColumn text="Nom du patient" prefWidth="200.0"/>
+                <TableColumn text="Motif" prefWidth="200.0"/>
+                <TableColumn text="Type" prefWidth="100.0"/>
+                <TableColumn text="Actions" prefWidth="150.0"/>
+            </columns>
+        </TableView>
+    </VBox>
+
+    <!-- Rappels importants -->
+    <VBox spacing="10.0" styleClass="section-container">
+        <Label text="Rappels importants" styleClass="section-title">
+            <font>
+                <Font name="System Bold" size="16.0"/>
+            </font>
+        </Label>
+
+        <VBox styleClass="reminder-list" spacing="10.0">
+            <HBox styleClass="reminder-item" alignment="CENTER_LEFT" spacing="10.0">
+                <FontIcon iconLiteral="fas-exclamation-circle" iconSize="16" iconColor="#e74c3c"/>
+                <Label text="Dossier patient incomplet: Ahmed Ben Ali"/>
+            </HBox>
+            <HBox styleClass="reminder-item" alignment="CENTER_LEFT" spacing="10.0">
+                <FontIcon iconLiteral="fas-info-circle" iconSize="16" iconColor="#3498db"/>
+                <Label text="Résultats d'analyses en attente: 3 patients"/>
+            </HBox>
+        </VBox>
+    </VBox>
+</VBox>
