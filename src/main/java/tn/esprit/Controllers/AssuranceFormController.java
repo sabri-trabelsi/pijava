@@ -52,7 +52,7 @@ public class AssuranceFormController implements Initializable {
         service = new AssuranceService();
 
         // Initialisation des combobox
-        comboType.getItems().addAll("Maladie", "Vie", "Automobile", "Habitation");
+        comboType.getItems().addAll("Basic", "Premium", "Full Cover");
         comboStatut.getItems().addAll("Actif", "Inactif", "En attente");
 
         // Configuration du format des dates

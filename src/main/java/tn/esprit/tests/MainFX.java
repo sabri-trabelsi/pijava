@@ -12,14 +12,14 @@ public class MainFX extends Application {
     public void start(Stage primaryStage) throws Exception {
         try {
             // Charger le layout principal avec sidebar et navbar
-            Parent root = FXMLLoader.load(getClass().getResource("/MainLayout.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/RoleSelector.fxml"));
 
             // Configurer la scène et ajouter les styles CSS
             Scene scene = new Scene(root);
             scene.getStylesheets().add(getClass().getResource("/styles/styles.css").toExternalForm());
 
             // Configurer et afficher la fenêtre principale
-            primaryStage.setTitle("DOC4U");
+            primaryStage.setTitle("DOC4U - Administration");
             primaryStage.setScene(scene);
             primaryStage.setMaximized(true);
             primaryStage.show();

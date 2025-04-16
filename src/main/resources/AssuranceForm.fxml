@@ -32,7 +32,6 @@
         <Label text="Type :" styleClass="form-label" GridPane.rowIndex="1" GridPane.columnIndex="0" />
         <ComboBox fx:id="comboType" promptText="Sélectionnez un type" styleClass="form-field"
                   GridPane.rowIndex="1" GridPane.columnIndex="1" />
-
         <!-- Compagnie -->
         <Label text="Compagnie :" styleClass="form-label" GridPane.rowIndex="2" GridPane.columnIndex="0" />
         <TextField fx:id="txtCompagnie" promptText="Nom de la compagnie" styleClass="form-field"

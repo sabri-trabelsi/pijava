@@ -154,4 +154,29 @@ public class AssuranceService implements IService<Assurance> {
         }
         return null;
     }
+    public List<Assurance> getAssurancesActives() {
+        List<Assurance> assurances = new ArrayList<>();
+        String req = "SELECT * FROM assurance WHERE statut='active'";
+        try {
+            Statement st = cnx.createStatement();
+            ResultSet rs = st.executeQuery(req);
+
+            while (rs.next()) {
+                Assurance assurance = new Assurance();
+                assurance.setId(rs.getInt("id"));
+                assurance.setNom(rs.getString("nom"));
+                assurance.setType(rs.getString("type"));
+                assurance.setCompagnie(rs.getString("compagnie"));
+                assurance.setDateDebut(rs.getDate("dateDebut"));
+                assurance.setDateExpiration(rs.getDate("dateExpiration"));
+                assurance.setStatut(rs.getString("statut"));
+
+                assurances.add(assurance);
+            }
+        } catch (SQLException e) {
+            System.err.println("Erreur lors de la récupération des assurances actives: " + e.getMessage());
+        }
+        return assurances;
+    }
+
 }
