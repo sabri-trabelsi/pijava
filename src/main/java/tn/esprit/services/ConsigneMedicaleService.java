@@ -11,7 +11,6 @@ import java.util.List;
 public class ConsigneMedicaleService implements IService<ConsigneMedicale> {
 
     private final Connection cnx = ConnexionDB.getInstance().getCnx();
-    private final UserService userService = new UserService(); // Reference to UserService
 
     @Override
     public void ajouter(ConsigneMedicale consigne) {
@@ -70,8 +69,6 @@ public class ConsigneMedicaleService implements IService<ConsigneMedicale> {
                         rs.getTimestamp("created_at"),
                         rs.getTimestamp("updated_at")
                 );
-                String patientFullName = userService.getPatientFullNameById(consigne.getPatient_id());
-                System.out.println("Patient: " + patientFullName);
                 list.add(consigne);
             }
         } catch (SQLException e) {
@@ -95,8 +92,6 @@ public class ConsigneMedicaleService implements IService<ConsigneMedicale> {
                         rs.getTimestamp("created_at"),
                         rs.getTimestamp("updated_at")
                 );
-                String patientFullName = userService.getPatientFullNameById(consigne.getPatient_id());
-                System.out.println("Patient: " + patientFullName);
                 list.add(consigne);
             }
         } catch (SQLException e) {
@@ -119,8 +114,6 @@ public class ConsigneMedicaleService implements IService<ConsigneMedicale> {
                         rs.getTimestamp("created_at"),
                         rs.getTimestamp("updated_at")
                 );
-                String patientFullName = userService.getPatientFullNameById(consigne.getPatient_id());
-                System.out.println("Patient: " + patientFullName);
                 return consigne;
             }
         } catch (SQLException e) {
@@ -129,39 +122,18 @@ public class ConsigneMedicaleService implements IService<ConsigneMedicale> {
         return null;
     }
 
-    public List<String> getAllPatients() {
-        return userService.getAllPatientFullNames();
-    }
-
-    public void save(ConsigneMedicale consigne) {
-        String req = "INSERT INTO medical_instruction (doctor_id, patient_id, content, created_at, updated_at) VALUES (?, ?, ?, ?, ?)";
-        try (PreparedStatement pst = cnx.prepareStatement(req, Statement.RETURN_GENERATED_KEYS)) {
-            pst.setInt(1, consigne.getDoctor_id());
-            pst.setInt(2, consigne.getPatient_id());
-            pst.setString(3, consigne.getContent());
-            pst.setTimestamp(4, new Timestamp(consigne.getCreated_at().getTime()));
-            pst.setTimestamp(5, new Timestamp(consigne.getUpdated_at().getTime()));
-
-            pst.executeUpdate();
-
-            // Retrieve and set the generated ID
-            ResultSet generatedKeys = pst.getGeneratedKeys();
-            if (generatedKeys.next()) {
-                consigne.setId(generatedKeys.getInt(1));
+    public int getPatientIdByName(String patient) {
+        String req = "SELECT id FROM users WHERE CONCAT(first_name, ' ', last_name) LIKE ?";
+        try (PreparedStatement pst = cnx.prepareStatement(req)) {
+            pst.setString(1, patient);
+            ResultSet rs = pst.executeQuery();
+            if (rs.next()) {
+                return rs.getInt("id");
             }
-
-            System.out.println("✅ Consigne médicale sauvegardée avec succès.");
         } catch (SQLException e) {
             e.printStackTrace();
         }
-    }
-
-    public int getPatientIdByName(String patientFullName) {
-        return userService.getPatientIdByName(patientFullName);
-    }
-
-    public String getPatientNameById(int patientId) {
-        return userService.getPatientFullNameById(patientId);
+        return 0;
     }
 
     public int saveAndReturnGeneratedId(ConsigneMedicale consigne) {
@@ -172,32 +144,29 @@ public class ConsigneMedicaleService implements IService<ConsigneMedicale> {
             pst.setString(3, consigne.getContent());
             pst.setTimestamp(4, new Timestamp(consigne.getCreated_at().getTime()));
             pst.setTimestamp(5, new Timestamp(consigne.getUpdated_at().getTime()));
-
             pst.executeUpdate();
 
-            // Retrieve and return the generated ID
-            ResultSet generatedKeys = pst.getGeneratedKeys();
-            if (generatedKeys.next()) {
-                return generatedKeys.getInt(1);
+            ResultSet rs = pst.getGeneratedKeys();
+            if (rs.next()) {
+                return rs.getInt(1);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return -1; // Return -1 if insertion or ID retrieval fails
+        return 0;
     }
 
-    public boolean isDoctorAssignedToPatient(int doctorId, int patientId) {
-        String query = "SELECT EXISTS(SELECT 1 FROM medical_instruction WHERE doctor_id = ? AND patient_id = ?)";
-        try (PreparedStatement pst = cnx.prepareStatement(query)) {
-            pst.setInt(1, doctorId);
-            pst.setInt(2, patientId);
-            ResultSet rs = pst.executeQuery();
-            if (rs.next()) {
-                return rs.getBoolean(1);
+
+    public List<String> getAllPatients() {
+        List<String> patients = new ArrayList<>();
+        String req = "SELECT CONCAT(name, ' ', last_name) AS full_name FROM user WHERE role = 'Patient'";
+        try (Statement st = cnx.createStatement(); ResultSet rs = st.executeQuery(req)) {
+            while (rs.next()) {
+                patients.add(rs.getString("full_name"));
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return false;
+        return patients;
     }
 }

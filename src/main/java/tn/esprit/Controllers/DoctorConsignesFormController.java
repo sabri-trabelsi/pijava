@@ -98,7 +98,7 @@ public class DoctorConsignesFormController implements Initializable {
                 return;
             }
 
-            int doctorId = userService.fetchAndValidateDoctorId();
+            int doctorId = userService.fetchAndValidateDoctorId(0);
             int patientId = consigneService.getPatientIdByName(patient);
 
             ConsigneMedicale consigne = new ConsigneMedicale(doctorId, patientId, content, null, null);

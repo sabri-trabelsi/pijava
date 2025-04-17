@@ -169,110 +169,23 @@ public class UserService implements IService<User> {
         return user;
     }
 
-    public List<User> getDoctors() {
-        List<User> doctors = new ArrayList<>();
-        String req = "SELECT * FROM user WHERE role = 'Doctor'";
-        try (Statement st = cnx.createStatement(); ResultSet rs = st.executeQuery(req)) {
-            while (rs.next()) {
-                User doctor = new User();
-                doctor.setId(rs.getInt("id"));
-                doctor.setName(rs.getString("name"));
-                doctor.setLastName(rs.getString("last_name"));
-                doctor.setEmail(rs.getString("email"));
-                doctor.setNumTel(rs.getString("num_tel"));
-                doctor.setRole(rs.getString("role"));
-                doctor.setAge(rs.getInt("age"));
-                doctor.setAdresse(rs.getString("adresse"));
-                doctor.setSpecialty(rs.getString("specialty"));
-                doctor.setCreated_at(rs.getDate("created_at"));
-                doctor.setIs_banned(rs.getBoolean("is_banned"));
-                doctor.setEnabled(rs.getBoolean("enabled"));
-                doctors.add(doctor);
-            }
-        } catch (SQLException e) {
-            System.err.println("Erreur lors de la récupération des docteurs: " + e.getMessage());
-        }
-        return doctors;
-    }
-
-    public String getPatientFullNameById(int patientId) {
-        String req = "SELECT CONCAT(name, ' ', last_name) AS full_name FROM user WHERE id = ?";
-        try (PreparedStatement ps = cnx.prepareStatement(req)) {
-            ps.setInt(1, patientId);
-            try (ResultSet rs = ps.executeQuery()) {
-                if (rs.next()) {
-                    return rs.getString("full_name");
+    public int fetchAndValidateDoctorId(int i) {
+        try {
+            String req = "SELECT id FROM user WHERE id = ? AND role = 'doctor' AND enabled = true";
+            try (PreparedStatement ps = cnx.prepareStatement(req)) {
+                ps.setInt(1, i);
+                try (ResultSet rs = ps.executeQuery()) {
+                    if (rs.next()) {
+                        return rs.getInt("id");
+                    } else {
+                        throw new IllegalArgumentException("Doctor ID not found or invalid.");
+                    }
                 }
-            }
-        } catch (SQLException e) {
-            System.err.println("Error retrieving patient full name by ID: " + e.getMessage());
-        }
-        return null;
-    }
-
-    public List<String> getAllPatientFullNames() {
-        List<String> patientFullNames = new ArrayList<>();
-        String req = "SELECT CONCAT(name, ' ', last_name) AS full_name FROM user WHERE role = 'Patient'";
-        try (Statement st = cnx.createStatement(); ResultSet rs = st.executeQuery(req)) {
-            while (rs.next()) {
-                patientFullNames.add(rs.getString("full_name"));
-            }
-        } catch (SQLException e) {
-            System.err.println("Error retrieving all patient full names: " + e.getMessage());
-        }
-        return patientFullNames;
-    }
-
-    public int getPatientIdByName(String patientFullName) {
-        String req = "SELECT id FROM user WHERE CONCAT(name, ' ', last_name) = ?";
-        try (PreparedStatement ps = cnx.prepareStatement(req)) {
-            ps.setString(1, patientFullName);
-            try (ResultSet rs = ps.executeQuery()) {
-                if (rs.next()) {
-                    return rs.getInt("id");
-                }
-            }
-        } catch (SQLException e) {
-            System.err.println("Error retrieving patient ID by name: " + e.getMessage());
-        }
-        return -1; // Return -1 if no patient ID is found
-    }
-
-
-    public int validateAndGetLoggedInDoctorId() {
-        String req = "SELECT id FROM user WHERE role = 'Doctor' AND enabled = true AND is_logged_in = true";
-        try (Statement st = cnx.createStatement(); ResultSet rs = st.executeQuery(req)) {
-            if (rs.next()) {
-                return rs.getInt("id");
-            }
-        } catch (SQLException e) {
-            System.err.println("Erreur lors de la validation et de la récupération de l'identifiant du docteur connecté: " + e.getMessage());
-        }
-        return -1; // Retourne -1 si aucun docteur n'est trouvé ou s'il y a une erreur
-    }
-
-    public int fetchAndValidateDoctorId() {
-        String req = "SELECT id FROM user WHERE role = 'Doctor' AND enabled = true AND is_logged_in = true";
-        try (Statement st = cnx.createStatement(); ResultSet rs = st.executeQuery(req)) {
-            if (rs.next()) {
-                return rs.getInt("id");
             }
         } catch (SQLException e) {
             System.err.println("Error fetching and validating doctor ID: " + e.getMessage());
+            throw new RuntimeException("Database error while validating doctor ID.", e);
         }
-        return -1; // Return -1 if no doctor is found or an error occurs
-    }
-
-    public int getCurrentLoggedInDoctorId() {
-        String req = "SELECT id FROM user WHERE role = 'Doctor' AND enabled = true AND is_logged_in = true";
-        try (Statement st = cnx.createStatement(); ResultSet rs = st.executeQuery(req)) {
-            if (rs.next()) {
-                return rs.getInt("id");
-            }
-        } catch (SQLException e) {
-            System.err.println("Erreur lors de la récupération de l'identifiant du docteur connecté: " + e.getMessage());
-        }
-        return -1; // Retourne -1 si aucun docteur n'est trouvé ou s'il y a une erreur
     }
 }
     
