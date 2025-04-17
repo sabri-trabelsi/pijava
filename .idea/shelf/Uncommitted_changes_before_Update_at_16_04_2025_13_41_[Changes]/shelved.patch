@@ -1,0 +1,217 @@
+Index: src/main/java/tn/esprit/tests/MainFX.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package tn.esprit.tests;\r\n\r\nimport javafx.application.Application;\r\nimport javafx.fxml.FXMLLoader;\r\nimport javafx.scene.Parent;\r\nimport javafx.scene.Scene;\r\nimport javafx.stage.Stage;\r\n\r\npublic class MainFX extends Application {\r\n\r\n    @Override\r\n    public void start(Stage primaryStage) throws Exception {\r\n        try {\r\n            // Charger le layout principal avec sidebar et navbar\r\n            Parent root = FXMLLoader.load(getClass().getResource(\"/MainLayout.fxml\"));\r\n\r\n            // Configurer la scène et ajouter les styles CSS\r\n            Scene scene = new Scene(root);\r\n            scene.getStylesheets().add(getClass().getResource(\"/styles/styles.css\").toExternalForm());\r\n\r\n            // Configurer et afficher la fenêtre principale\r\n            primaryStage.setTitle(\"Gestion des Assurances\");\r\n            primaryStage.setScene(scene);\r\n            primaryStage.setMaximized(true);\r\n            primaryStage.show();\r\n        } catch (Exception e) {\r\n            e.printStackTrace();\r\n        }\r\n    }\r\n\r\n    public static void main(String[] args) {\r\n        launch(args);\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/tn/esprit/tests/MainFX.java b/src/main/java/tn/esprit/tests/MainFX.java
+--- a/src/main/java/tn/esprit/tests/MainFX.java	(revision e8729044c4cffd924c9f6da51db86290673097ed)
++++ b/src/main/java/tn/esprit/tests/MainFX.java	(date 1744791996619)
+@@ -11,17 +11,16 @@
+     @Override
+     public void start(Stage primaryStage) throws Exception {
+         try {
+-            // Charger le layout principal avec sidebar et navbar
+-            Parent root = FXMLLoader.load(getClass().getResource("/MainLayout.fxml"));
++            // Charger le sélecteur de rôle
++            Parent root = FXMLLoader.load(getClass().getResource("/RoleSelector.fxml"));
+ 
+             // Configurer la scène et ajouter les styles CSS
+             Scene scene = new Scene(root);
+             scene.getStylesheets().add(getClass().getResource("/styles/styles.css").toExternalForm());
+ 
+             // Configurer et afficher la fenêtre principale
+-            primaryStage.setTitle("Gestion des Assurances");
++            primaryStage.setTitle("DOC4U - Sélection du rôle");
+             primaryStage.setScene(scene);
+-            primaryStage.setMaximized(true);
+             primaryStage.show();
+         } catch (Exception e) {
+             e.printStackTrace();
+Index: src/main/java/tn/esprit/services/AssuranceService.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package tn.esprit.services;\r\n\r\nimport java.sql.*;\r\nimport java.util.ArrayList;\r\nimport java.util.List;\r\n\r\nimport tn.esprit.interfaces.IService;\r\nimport tn.esprit.models.Assurance;\r\nimport tn.esprit.utils.ConnexionDB;\r\n\r\npublic class AssuranceService implements IService<Assurance> {\r\n\r\n    private Connection cnx;\r\n    private PreparedStatement pst;\r\n\r\n    public AssuranceService() {\r\n        cnx = ConnexionDB.getInstance().getCnx();\r\n    }\r\n\r\n    @Override\r\n    public void ajouter(Assurance assurance) {\r\n        String req = \"INSERT INTO assurance (nom, type, compagnie, dateDebut, dateExpiration, statut) VALUES (?, ?, ?, ?, ?, ?)\";\r\n        try {\r\n            pst = cnx.prepareStatement(req);\r\n            pst.setString(1, assurance.getNom());\r\n            pst.setString(2, assurance.getType());\r\n            pst.setString(3, assurance.getCompagnie());\r\n            pst.setDate(4, new java.sql.Date(assurance.getDateDebut().getTime()));\r\n            pst.setDate(5, new java.sql.Date(assurance.getDateExpiration().getTime()));\r\n            pst.setString(6, assurance.getStatut());\r\n\r\n            pst.executeUpdate();\r\n            System.out.println(\"Assurance ajoutée avec succès\");\r\n        } catch (SQLException e) {\r\n            System.err.println(\"Erreur lors de l'ajout de l'assurance: \" + e.getMessage());\r\n        }\r\n    }\r\n\r\n    @Override\r\n    public void modifier(Assurance assurance) {\r\n        String req = \"UPDATE assurance SET nom=?, type=?, compagnie=?, dateDebut=?, dateExpiration=?, statut=? WHERE id=?\";\r\n        try {\r\n            pst = cnx.prepareStatement(req);\r\n            pst.setString(1, assurance.getNom());\r\n            pst.setString(2, assurance.getType());\r\n            pst.setString(3, assurance.getCompagnie());\r\n            pst.setDate(4, new java.sql.Date(assurance.getDateDebut().getTime()));\r\n            pst.setDate(5, new java.sql.Date(assurance.getDateExpiration().getTime()));\r\n            pst.setString(6, assurance.getStatut());\r\n            pst.setInt(7, assurance.getId());\r\n\r\n            pst.executeUpdate();\r\n            System.out.println(\"Assurance modifiée avec succès\");\r\n        } catch (SQLException e) {\r\n            System.err.println(\"Erreur lors de la modification de l'assurance: \" + e.getMessage());\r\n        }\r\n    }\r\n\r\n    @Override\r\n    public void supprimer(Assurance assurance) {\r\n        String req = \"DELETE FROM assurance WHERE id=?\";\r\n        try {\r\n            pst = cnx.prepareStatement(req);\r\n            pst.setInt(1, assurance.getId());\r\n\r\n            pst.executeUpdate();\r\n            System.out.println(\"Assurance supprimée avec succès\");\r\n        } catch (SQLException e) {\r\n            System.err.println(\"Erreur lors de la suppression de l'assurance: \" + e.getMessage());\r\n        }\r\n    }\r\n\r\n    @Override\r\n    public List<Assurance> rechercher() {\r\n        List<Assurance> assurances = new ArrayList<>();\r\n        String req = \"SELECT * FROM assurance\";\r\n        try {\r\n            Statement st = cnx.createStatement();\r\n            ResultSet rs = st.executeQuery(req);\r\n\r\n            while (rs.next()) {\r\n                Assurance assurance = new Assurance();\r\n                assurance.setId(rs.getInt(\"id\"));\r\n                assurance.setNom(rs.getString(\"nom\"));\r\n                assurance.setType(rs.getString(\"type\"));\r\n                assurance.setCompagnie(rs.getString(\"compagnie\"));\r\n                assurance.setDateDebut(rs.getDate(\"dateDebut\"));\r\n                assurance.setDateExpiration(rs.getDate(\"dateExpiration\"));\r\n                assurance.setStatut(rs.getString(\"statut\"));\r\n\r\n                assurances.add(assurance);\r\n            }\r\n        } catch (SQLException e) {\r\n            System.err.println(\"Erreur lors de la récupération des assurances: \" + e.getMessage());\r\n        }\r\n        return assurances;\r\n    }\r\n\r\n    @Override\r\n    public List<Assurance> rechercher(String query) {\r\n        List<Assurance> assurances = new ArrayList<>();\r\n        String req = \"SELECT * FROM assurance WHERE nom LIKE ? OR type LIKE ? OR compagnie LIKE ? OR statut LIKE ?\";\r\n        try {\r\n            pst = cnx.prepareStatement(req);\r\n            String paramQuery = \"%\" + query + \"%\";\r\n            pst.setString(1, paramQuery);\r\n            pst.setString(2, paramQuery);\r\n            pst.setString(3, paramQuery);\r\n            pst.setString(4, paramQuery);\r\n\r\n            ResultSet rs = pst.executeQuery();\r\n\r\n            while (rs.next()) {\r\n                Assurance assurance = new Assurance();\r\n                assurance.setId(rs.getInt(\"id\"));\r\n                assurance.setNom(rs.getString(\"nom\"));\r\n                assurance.setType(rs.getString(\"type\"));\r\n                assurance.setCompagnie(rs.getString(\"compagnie\"));\r\n                assurance.setDateDebut(rs.getDate(\"dateDebut\"));\r\n                assurance.setDateExpiration(rs.getDate(\"dateExpiration\"));\r\n                assurance.setStatut(rs.getString(\"statut\"));\r\n\r\n                assurances.add(assurance);\r\n            }\r\n        } catch (SQLException e) {\r\n            System.err.println(\"Erreur lors de la recherche d'assurances: \" + e.getMessage());\r\n        }\r\n        return assurances;\r\n    }\r\n\r\n    @Override\r\n    public Assurance rechercherById(int id) {\r\n        String req = \"SELECT * FROM assurance WHERE id=?\";\r\n        try {\r\n            pst = cnx.prepareStatement(req);\r\n            pst.setInt(1, id);\r\n\r\n            ResultSet rs = pst.executeQuery();\r\n\r\n            if (rs.next()) {\r\n                Assurance assurance = new Assurance();\r\n                assurance.setId(rs.getInt(\"id\"));\r\n                assurance.setNom(rs.getString(\"nom\"));\r\n                assurance.setType(rs.getString(\"type\"));\r\n                assurance.setCompagnie(rs.getString(\"compagnie\"));\r\n                assurance.setDateDebut(rs.getDate(\"dateDebut\"));\r\n                assurance.setDateExpiration(rs.getDate(\"dateExpiration\"));\r\n                assurance.setStatut(rs.getString(\"statut\"));\r\n\r\n                return assurance;\r\n            }\r\n        } catch (SQLException e) {\r\n            System.err.println(\"Erreur lors de la recherche d'assurance par ID: \" + e.getMessage());\r\n        }\r\n        return null;\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/tn/esprit/services/AssuranceService.java b/src/main/java/tn/esprit/services/AssuranceService.java
+--- a/src/main/java/tn/esprit/services/AssuranceService.java	(revision e8729044c4cffd924c9f6da51db86290673097ed)
++++ b/src/main/java/tn/esprit/services/AssuranceService.java	(date 1744797231226)
+@@ -154,4 +154,29 @@
+         }
+         return null;
+     }
++    public List<Assurance> getAssurancesActives() {
++        List<Assurance> assurances = new ArrayList<>();
++        String req = "SELECT * FROM assurance WHERE statut='active'";
++        try {
++            Statement st = cnx.createStatement();
++            ResultSet rs = st.executeQuery(req);
++
++            while (rs.next()) {
++                Assurance assurance = new Assurance();
++                assurance.setId(rs.getInt("id"));
++                assurance.setNom(rs.getString("nom"));
++                assurance.setType(rs.getString("type"));
++                assurance.setCompagnie(rs.getString("compagnie"));
++                assurance.setDateDebut(rs.getDate("dateDebut"));
++                assurance.setDateExpiration(rs.getDate("dateExpiration"));
++                assurance.setStatut(rs.getString("statut"));
++
++                assurances.add(assurance);
++            }
++        } catch (SQLException e) {
++            System.err.println("Erreur lors de la récupération des assurances actives: " + e.getMessage());
++        }
++        return assurances;
++    }
++
+ }
+\ No newline at end of file
+Index: pom.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project xmlns=\"http://maven.apache.org/POM/4.0.0\"\r\n         xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"\r\n         xsi:schemaLocation=\"http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd\">\r\n    <modelVersion>4.0.0</modelVersion>\r\n\r\n    <groupId>tn.esprit</groupId>\r\n    <artifactId>pi</artifactId>\r\n    <version>1.0-SNAPSHOT</version>\r\n\r\n\r\n    <properties>\r\n        <maven.compiler.source>17</maven.compiler.source>\r\n        <maven.compiler.target>17</maven.compiler.target>\r\n        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>\r\n    </properties>\r\n\r\n    <dependencies>\r\n        <dependency>\r\n            <groupId>mysql</groupId>\r\n            <artifactId>mysql-connector-java</artifactId>\r\n            <version>8.0.33</version>\r\n        </dependency>\r\n        <dependency>\r\n            <groupId>org.openjfx</groupId>\r\n            <artifactId>javafx-fxml</artifactId>\r\n            <version>21.0.2</version>\r\n        </dependency>\r\n        <dependency>\r\n            <groupId>org.openjfx</groupId>\r\n            <artifactId>javafx-controls</artifactId>\r\n            <version>21.0.2</version>\r\n        </dependency>\r\n        <dependency>\r\n            <groupId>org.openjfx</groupId>\r\n            <artifactId>javafx-base</artifactId>\r\n            <version>21.0.2</version>\r\n        </dependency>\r\n        <dependency>\r\n            <groupId>org.openjfx</groupId>\r\n            <artifactId>javafx-graphics</artifactId>\r\n            <version>21.0.2</version>\r\n        </dependency>\r\n\r\n\r\n\r\n\r\n\r\n    </dependencies>\r\n    <build>\r\n        <plugins>\r\n            <plugin>\r\n                <groupId>org.openjfx</groupId>\r\n                <artifactId>javafx-maven-plugin</artifactId>\r\n                <version>0.0.8</version>\r\n                <configuration>\r\n                    <mainClass>tn.esprit.tests.MainFX</mainClass>\r\n                    <options>\r\n                        <option>--module-path</option>\r\n                        <option>${java.home}/../lib/javafx-sdk-21/lib</option>\r\n                        <option>--add-modules</option>\r\n                        <option>javafx.controls,javafx.fxml,javafx.graphics</option>\r\n                    </options>\r\n                </configuration>\r\n            </plugin>\r\n        </plugins>\r\n    </build>\r\n\r\n\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/pom.xml b/pom.xml
+--- a/pom.xml	(revision e8729044c4cffd924c9f6da51db86290673097ed)
++++ b/pom.xml	(date 1744795188488)
+@@ -41,7 +41,16 @@
+             <artifactId>javafx-graphics</artifactId>
+             <version>21.0.2</version>
+         </dependency>
+-
++        <dependency>
++            <groupId>org.kordamp.ikonli</groupId>
++            <artifactId>ikonli-javafx</artifactId>
++            <version>12.3.1</version>
++        </dependency>
++        <dependency>
++            <groupId>org.kordamp.ikonli</groupId>
++            <artifactId>ikonli-fontawesome5-pack</artifactId>
++            <version>12.3.1</version>
++        </dependency>
+ 
+ 
+ 
+Index: src/main/java/tn/esprit/Controllers/AssuranceFormController.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package tn.esprit.Controllers;\r\n\r\nimport javafx.fxml.FXML;\r\nimport javafx.fxml.FXMLLoader;\r\nimport javafx.fxml.Initializable;\r\nimport javafx.scene.Parent;\r\nimport javafx.scene.control.*;\r\nimport javafx.scene.layout.StackPane;\r\nimport javafx.util.StringConverter;\r\nimport tn.esprit.models.Assurance;\r\nimport tn.esprit.services.AssuranceService;\r\n\r\nimport java.net.URL;\r\nimport java.time.LocalDate;\r\nimport java.time.format.DateTimeFormatter;\r\nimport java.util.ResourceBundle;\r\n\r\npublic class AssuranceFormController implements Initializable {\r\n\r\n    @FXML\r\n    private ComboBox<String> comboType;\r\n\r\n    @FXML\r\n    private ComboBox<String> comboStatut;\r\n\r\n    @FXML\r\n    private TextField txtNom;\r\n\r\n    @FXML\r\n    private TextField txtCompagnie;\r\n\r\n    @FXML\r\n    private DatePicker dpDateDebut;\r\n\r\n    @FXML\r\n    private DatePicker dpDateExpiration;\r\n\r\n    @FXML\r\n    private Button btnSauvegarder;\r\n\r\n    @FXML\r\n    private Button btnAnnuler;\r\n\r\n    private AssuranceService service;\r\n\r\n    // Variables pour le mode édition\r\n    private int assuranceId;\r\n    private boolean isEditMode = false;\r\n\r\n    @Override\r\n    public void initialize(URL url, ResourceBundle resourceBundle) {\r\n        service = new AssuranceService();\r\n\r\n        // Initialisation des combobox\r\n        comboType.getItems().addAll(\"Maladie\", \"Vie\", \"Automobile\", \"Habitation\");\r\n        comboStatut.getItems().addAll(\"Actif\", \"Inactif\", \"En attente\");\r\n\r\n        // Configuration du format des dates\r\n        configurerFormatDates();\r\n\r\n        // Par défaut, initialiser les dates\r\n        dpDateDebut.setValue(LocalDate.now());\r\n        dpDateExpiration.setValue(LocalDate.now().plusYears(1));\r\n\r\n        System.out.println(\"AssuranceFormController initialisé\");\r\n    }\r\n\r\n    private void configurerFormatDates() {\r\n        // Configuration du format des dates pour les DatePickers\r\n        String pattern = \"dd/MM/yyyy\";\r\n        StringConverter<LocalDate> converter = new StringConverter<>() {\r\n            DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);\r\n\r\n            @Override\r\n            public String toString(LocalDate date) {\r\n                if (date != null) {\r\n                    return formatter.format(date);\r\n                } else {\r\n                    return \"\";\r\n                }\r\n            }\r\n\r\n            @Override\r\n            public LocalDate fromString(String string) {\r\n                if (string != null && !string.isEmpty()) {\r\n                    return LocalDate.parse(string, formatter);\r\n                } else {\r\n                    return null;\r\n                }\r\n            }\r\n        };\r\n\r\n        dpDateDebut.setConverter(converter);\r\n        dpDateExpiration.setConverter(converter);\r\n\r\n        // Style visuel pour les prompts\r\n        dpDateDebut.setPromptText(\"JJ/MM/AAAA\");\r\n        dpDateExpiration.setPromptText(\"JJ/MM/AAAA\");\r\n    }\r\n\r\n    /**\r\n     * Méthode pour définir les valeurs d'une assurance existante dans le formulaire\r\n     * @param assurance L'assurance à éditer\r\n     */\r\n    public void setAssurance(Assurance assurance) {\r\n        if (assurance == null) {\r\n            System.err.println(\"Erreur: assurance null\");\r\n            return;\r\n        }\r\n\r\n        System.out.println(\"Configuration du formulaire pour l'assurance ID: \" + assurance.getId());\r\n\r\n        // Stocke l'ID de l'assurance\r\n        this.assuranceId = assurance.getId();\r\n        this.isEditMode = true;\r\n\r\n        // Changer le titre du bouton en mode édition\r\n        btnSauvegarder.setText(\"Mettre à jour\");\r\n\r\n        // Définit les valeurs dans les champs\r\n        txtNom.setText(assurance.getNom());\r\n        txtCompagnie.setText(assurance.getCompagnie());\r\n\r\n        // Configuration des combobox\r\n        comboType.setValue(assurance.getType());\r\n        comboStatut.setValue(assurance.getStatut());\r\n\r\n        // Conversion des dates (java.util.Date → java.time.LocalDate)\r\n        if (assurance.getDateDebut() != null) {\r\n            LocalDate dateDebut = new java.sql.Date(assurance.getDateDebut().getTime()).toLocalDate();\r\n            dpDateDebut.setValue(dateDebut);\r\n        }\r\n\r\n        if (assurance.getDateExpiration() != null) {\r\n            LocalDate dateExpiration = new java.sql.Date(assurance.getDateExpiration().getTime()).toLocalDate();\r\n            dpDateExpiration.setValue(dateExpiration);\r\n        }\r\n    }\r\n\r\n    @FXML\r\n    private void handleSauvegarder() {\r\n        if (validerChamps()) {\r\n            try {\r\n                // Création ou récupération de l'objet Assurance\r\n                Assurance assurance = new Assurance();\r\n\r\n                // Si en mode édition, définir l'ID\r\n                if (isEditMode) {\r\n                    assurance.setId(assuranceId);\r\n                }\r\n\r\n                // Définition des propriétés\r\n                assurance.setNom(txtNom.getText());\r\n                assurance.setType(comboType.getValue());\r\n                assurance.setCompagnie(txtCompagnie.getText());\r\n\r\n                // Conversion LocalDate -> java.util.Date\r\n                java.util.Date dateDebut = java.sql.Date.valueOf(dpDateDebut.getValue());\r\n                java.util.Date dateExpiration = java.sql.Date.valueOf(dpDateExpiration.getValue());\r\n\r\n                assurance.setDateDebut(dateDebut);\r\n                assurance.setDateExpiration(dateExpiration);\r\n                assurance.setStatut(comboStatut.getValue());\r\n\r\n                // Ajout ou modification selon le mode\r\n                if (isEditMode) {\r\n                    System.out.println(\"Modification de l'assurance ID: \" + assuranceId);\r\n                    service.modifier(assurance);\r\n                    afficherMessage(\"Assurance modifiée avec succès\", Alert.AlertType.INFORMATION);\r\n                } else {\r\n                    System.out.println(\"Ajout d'une nouvelle assurance\");\r\n                    service.ajouter(assurance);\r\n                    afficherMessage(\"Assurance ajoutée avec succès\", Alert.AlertType.INFORMATION);\r\n                }\r\n\r\n                // Retour à la liste\r\n                navigateToList();\r\n            } catch (Exception e) {\r\n                afficherMessage(\"Erreur lors de l'opération: \" + e.getMessage(), Alert.AlertType.ERROR);\r\n                e.printStackTrace();\r\n            }\r\n        }\r\n    }\r\n\r\n    private boolean validerChamps() {\r\n        StringBuilder erreurs = new StringBuilder();\r\n\r\n        // Validation des champs obligatoires\r\n        if (txtNom.getText().isEmpty())\r\n            erreurs.append(\"- Le nom est obligatoire\\n\");\r\n\r\n        if (comboType.getValue() == null)\r\n            erreurs.append(\"- Le type est obligatoire\\n\");\r\n\r\n        if (txtCompagnie.getText().isEmpty())\r\n            erreurs.append(\"- La compagnie est obligatoire\\n\");\r\n\r\n        if (dpDateDebut.getValue() == null)\r\n            erreurs.append(\"- La date de début est obligatoire\\n\");\r\n\r\n        if (dpDateExpiration.getValue() == null)\r\n            erreurs.append(\"- La date d'expiration est obligatoire\\n\");\r\n\r\n        if (comboStatut.getValue() == null)\r\n            erreurs.append(\"- Le statut est obligatoire\\n\");\r\n\r\n        // Si des erreurs ont été identifiées\r\n        if (erreurs.length() > 0) {\r\n            afficherMessage(\"Veuillez corriger les erreurs suivantes:\\n\" + erreurs.toString(), Alert.AlertType.ERROR);\r\n            return false;\r\n        }\r\n\r\n        // Vérification des dates\r\n        if (dpDateDebut.getValue().isAfter(dpDateExpiration.getValue())) {\r\n            afficherMessage(\"La date de début doit être antérieure à la date d'expiration\", Alert.AlertType.ERROR);\r\n            return false;\r\n        }\r\n\r\n        return true;\r\n    }\r\n\r\n    private void afficherMessage(String message, Alert.AlertType type) {\r\n        Alert alert = new Alert(type);\r\n        alert.setTitle(type == Alert.AlertType.ERROR ? \"Erreur\" : \"Succès\");\r\n        alert.setHeaderText(null);\r\n        alert.setContentText(message);\r\n        alert.showAndWait();\r\n    }\r\n\r\n    @FXML\r\n    private void handleAnnuler() {\r\n        navigateToList();\r\n    }\r\n\r\n    private void navigateToList() {\r\n        try {\r\n            StackPane contentArea = (StackPane) txtNom.getScene().lookup(\"#contentArea\");\r\n            Label pageTitleLabel = (Label) txtNom.getScene().lookup(\"#pageTitleLabel\");\r\n\r\n            if (pageTitleLabel != null) {\r\n                pageTitleLabel.setText(\"Liste des Assurances\");\r\n            }\r\n\r\n            if (contentArea != null) {\r\n                FXMLLoader loader = new FXMLLoader(getClass().getResource(\"/AssuranceList.fxml\"));\r\n                Parent view = loader.load();\r\n\r\n                // Récupérer le contrôleur de liste et rafraîchir les données\r\n                AssuranceListController controller = loader.getController();\r\n                controller.chargerDonnees();  // Rafraîchir les données\r\n\r\n                contentArea.getChildren().clear();\r\n                contentArea.getChildren().add(view);\r\n            }\r\n        } catch (Exception e) {\r\n            e.printStackTrace();\r\n            System.err.println(\"Erreur de navigation: \" + e.getMessage());\r\n        }\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/tn/esprit/Controllers/AssuranceFormController.java b/src/main/java/tn/esprit/Controllers/AssuranceFormController.java
+--- a/src/main/java/tn/esprit/Controllers/AssuranceFormController.java	(revision e8729044c4cffd924c9f6da51db86290673097ed)
++++ b/src/main/java/tn/esprit/Controllers/AssuranceFormController.java	(date 1744756475826)
+@@ -52,7 +52,7 @@
+         service = new AssuranceService();
+ 
+         // Initialisation des combobox
+-        comboType.getItems().addAll("Maladie", "Vie", "Automobile", "Habitation");
++        comboType.getItems().addAll("Basic", "Premium", "Full Cover");
+         comboStatut.getItems().addAll("Actif", "Inactif", "En attente");
+ 
+         // Configuration du format des dates
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"AutoImportSettings\">\r\n    <option name=\"autoReloadType\" value=\"SELECTIVE\" />\r\n  </component>\r\n  <component name=\"ChangeListManager\">\r\n    <list default=\"true\" id=\"f8acaa53-0932-4136-a6df-0fcb669badc1\" name=\"Changes\" comment=\"\" />\r\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\r\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\r\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\r\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\r\n  </component>\r\n  <component name=\"FileTemplateManagerImpl\">\r\n    <option name=\"RECENT_TEMPLATES\">\r\n      <list>\r\n        <option value=\"Interface\" />\r\n        <option value=\"module-info\" />\r\n        <option value=\"Class\" />\r\n        <option value=\"FxmlFile\" />\r\n        <option value=\"CSS File\" />\r\n      </list>\r\n    </option>\r\n  </component>\r\n  <component name=\"ProjectColorInfo\">{\r\n  &quot;associatedIndex&quot;: 0\r\n}</component>\r\n  <component name=\"ProjectId\" id=\"2vh14gFnkApv8pID8bjWMV3AxAP\" />\r\n  <component name=\"ProjectViewState\">\r\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\r\n    <option name=\"showLibraryContents\" value=\"true\" />\r\n  </component>\r\n  <component name=\"PropertiesComponent\"><![CDATA[{\r\n  \"keyToString\": {\r\n    \"Application.MainFX.executor\": \"Run\",\r\n    \"Application.main.executor\": \"Run\",\r\n    \"Maven.pi [clean,install].executor\": \"Run\",\r\n    \"Maven.pi [clean].executor\": \"Run\",\r\n    \"Maven.pi [javafx:run].executor\": \"Run\",\r\n    \"Maven.pi [org.openjfx:javafx-maven-plugin:0.0.8:run].executor\": \"Run\",\r\n    \"RunOnceActivity.ShowReadmeOnStart\": \"true\",\r\n    \"kotlin-language-version-configured\": \"true\",\r\n    \"last_directory_selection\": \"C:/Users/user/Desktop/esprit/3a61/java/pi/src/main/java\",\r\n    \"last_opened_file_path\": \"C:/Users/user/AppData/Local/SceneBuilder/SceneBuilder.exe\",\r\n    \"list.type.of.created.stylesheet\": \"CSS\",\r\n    \"node.js.detected.package.eslint\": \"true\",\r\n    \"node.js.detected.package.tslint\": \"true\",\r\n    \"node.js.selected.package.eslint\": \"(autodetect)\",\r\n    \"node.js.selected.package.tslint\": \"(autodetect)\",\r\n    \"nodejs_package_manager_path\": \"npm\",\r\n    \"project.structure.last.edited\": \"Modules\",\r\n    \"project.structure.proportion\": \"0.15\",\r\n    \"project.structure.side.proportion\": \"0.2\",\r\n    \"settings.editor.selected.configurable\": \"preferences.pluginManager\",\r\n    \"vue.rearranger.settings.migration\": \"true\"\r\n  }\r\n}]]></component>\r\n  <component name=\"RecentsManager\">\r\n    <key name=\"MoveFile.RECENT_KEYS\">\r\n      <recent name=\"C:\\Users\\user\\Desktop\\esprit\\3a61\\java\\pi\\src\\main\\resources\\styles\" />\r\n      <recent name=\"C:\\Users\\user\\Desktop\\esprit\\3a61\\java\\pi\\src\\main\\resources\\images\" />\r\n    </key>\r\n  </component>\r\n  <component name=\"RunAnythingCache\">\r\n    <option name=\"myCommands\">\r\n      <command value=\"mvn javafx:run\" />\r\n      <command value=\"mvn clean\" />\r\n      <command value=\"mvn clean install\" />\r\n    </option>\r\n  </component>\r\n  <component name=\"SharedIndexes\">\r\n    <attachedChunks>\r\n      <set>\r\n        <option value=\"bundled-jdk-9823dce3aa75-a94e463ab2e7-intellij.indexing.shared.core-IU-243.26053.27\" />\r\n        <option value=\"bundled-js-predefined-d6986cc7102b-1632447f56bf-JavaScript-IU-243.26053.27\" />\r\n      </set>\r\n    </attachedChunks>\r\n  </component>\r\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\r\n  <component name=\"TaskManager\">\r\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\r\n      <changelist id=\"f8acaa53-0932-4136-a6df-0fcb669badc1\" name=\"Changes\" comment=\"\" />\r\n      <created>1744582312076</created>\r\n      <option name=\"number\" value=\"Default\" />\r\n      <option name=\"presentableId\" value=\"Default\" />\r\n      <updated>1744582312076</updated>\r\n      <workItem from=\"1744582312877\" duration=\"3738000\" />\r\n      <workItem from=\"1744586460572\" duration=\"679000\" />\r\n      <workItem from=\"1744588683006\" duration=\"609000\" />\r\n      <workItem from=\"1744590132402\" duration=\"6623000\" />\r\n      <workItem from=\"1744667113654\" duration=\"18217000\" />\r\n      <workItem from=\"1744701587256\" duration=\"254000\" />\r\n      <workItem from=\"1744701951079\" duration=\"399000\" />\r\n      <workItem from=\"1744702418053\" duration=\"558000\" />\r\n      <workItem from=\"1744703023680\" duration=\"1114000\" />\r\n      <workItem from=\"1744707655471\" duration=\"11048000\" />\r\n    </task>\r\n    <servers />\r\n  </component>\r\n  <component name=\"TypeScriptGeneratedFilesManager\">\r\n    <option name=\"version\" value=\"3\" />\r\n  </component>\r\n  <component name=\"XSLT-Support.FileAssociations.UIState\">\r\n    <expand />\r\n    <select />\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	(revision e8729044c4cffd924c9f6da51db86290673097ed)
++++ b/.idea/workspace.xml	(date 1744807275967)
+@@ -4,7 +4,14 @@
+     <option name="autoReloadType" value="SELECTIVE" />
+   </component>
+   <component name="ChangeListManager">
+-    <list default="true" id="f8acaa53-0932-4136-a6df-0fcb669badc1" name="Changes" comment="" />
++    <list default="true" id="f8acaa53-0932-4136-a6df-0fcb669badc1" name="Changes" comment="">
++      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/java/tn/esprit/Controllers/AssuranceFormController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tn/esprit/Controllers/AssuranceFormController.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/java/tn/esprit/services/AssuranceService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tn/esprit/services/AssuranceService.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/java/tn/esprit/tests/MainFX.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tn/esprit/tests/MainFX.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/resources/AssuranceForm.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/AssuranceForm.fxml" afterDir="false" />
++    </list>
+     <option name="SHOW_DIALOG" value="false" />
+     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+@@ -15,16 +22,32 @@
+       <list>
+         <option value="Interface" />
+         <option value="module-info" />
+-        <option value="Class" />
+-        <option value="FxmlFile" />
+         <option value="CSS File" />
++        <option value="FxmlFile" />
++        <option value="Class" />
+       </list>
+     </option>
+   </component>
++  <component name="Git.Settings">
++    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
++  </component>
++  <component name="GitHubPullRequestSearchHistory">{
++  &quot;lastFilter&quot;: {
++    &quot;state&quot;: &quot;OPEN&quot;,
++    &quot;assignee&quot;: &quot;sabri-trabelsi&quot;
++  }
++}</component>
++  <component name="GithubPullRequestsUISettings">{
++  &quot;selectedUrlAndAccountId&quot;: {
++    &quot;url&quot;: &quot;https://github.com/sabri-trabelsi/pijava.git&quot;,
++    &quot;accountId&quot;: &quot;c846bb8e-765d-4a3b-98b5-9a37bf9621b2&quot;
++  }
++}</component>
+   <component name="ProjectColorInfo">{
+   &quot;associatedIndex&quot;: 0
+ }</component>
+   <component name="ProjectId" id="2vh14gFnkApv8pID8bjWMV3AxAP" />
++  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+   <component name="ProjectViewState">
+     <option name="hideEmptyMiddlePackages" value="true" />
+     <option name="showLibraryContents" value="true" />
+@@ -38,6 +61,8 @@
+     "Maven.pi [javafx:run].executor": "Run",
+     "Maven.pi [org.openjfx:javafx-maven-plugin:0.0.8:run].executor": "Run",
+     "RunOnceActivity.ShowReadmeOnStart": "true",
++    "RunOnceActivity.git.unshallow": "true",
++    "git-widget-placeholder": "master",
+     "kotlin-language-version-configured": "true",
+     "last_directory_selection": "C:/Users/user/Desktop/esprit/3a61/java/pi/src/main/java",
+     "last_opened_file_path": "C:/Users/user/AppData/Local/SceneBuilder/SceneBuilder.exe",
+@@ -92,7 +117,8 @@
+       <workItem from="1744701951079" duration="399000" />
+       <workItem from="1744702418053" duration="558000" />
+       <workItem from="1744703023680" duration="1114000" />
+-      <workItem from="1744707655471" duration="11048000" />
++      <workItem from="1744707655471" duration="16901000" />
++      <workItem from="1744791114032" duration="9317000" />
+     </task>
+     <servers />
+   </component>
+Index: src/main/resources/AssuranceForm.fxml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n\r\n<?import javafx.scene.control.*?>\r\n<?import javafx.scene.layout.*?>\r\n<?import javafx.geometry.Insets?>\r\n<?import java.net.URL?>\r\n\r\n<VBox spacing=\"20\" xmlns=\"http://javafx.com/javafx/17.0.12\" xmlns:fx=\"http://javafx.com/fxml/1\"\r\n      fx:controller=\"tn.esprit.Controllers.AssuranceFormController\" styleClass=\"container\">\r\n\r\n    <stylesheets>\r\n        <URL value=\"@styles/assurance-styles.css\" />\r\n    </stylesheets>\r\n\r\n    <padding>\r\n        <Insets top=\"20\" right=\"20\" bottom=\"20\" left=\"20\"/>\r\n    </padding>\r\n\r\n    <!-- Formulaire de saisie -->\r\n    <GridPane hgap=\"15\" vgap=\"15\" styleClass=\"form-grid\">\r\n        <columnConstraints>\r\n            <ColumnConstraints hgrow=\"NEVER\" minWidth=\"120\" prefWidth=\"150\" />\r\n            <ColumnConstraints hgrow=\"ALWAYS\" minWidth=\"200\" prefWidth=\"300\" />\r\n        </columnConstraints>\r\n\r\n        <!-- Nom -->\r\n        <Label text=\"Nom :\" styleClass=\"form-label\" GridPane.rowIndex=\"0\" GridPane.columnIndex=\"0\" />\r\n        <TextField fx:id=\"txtNom\" promptText=\"Nom de l'assurance\" styleClass=\"form-field\"\r\n                   GridPane.rowIndex=\"0\" GridPane.columnIndex=\"1\" />\r\n\r\n        <!-- Type -->\r\n        <Label text=\"Type :\" styleClass=\"form-label\" GridPane.rowIndex=\"1\" GridPane.columnIndex=\"0\" />\r\n        <ComboBox fx:id=\"comboType\" promptText=\"Sélectionnez un type\" styleClass=\"form-field\"\r\n                  GridPane.rowIndex=\"1\" GridPane.columnIndex=\"1\" />\r\n\r\n        <!-- Compagnie -->\r\n        <Label text=\"Compagnie :\" styleClass=\"form-label\" GridPane.rowIndex=\"2\" GridPane.columnIndex=\"0\" />\r\n        <TextField fx:id=\"txtCompagnie\" promptText=\"Nom de la compagnie\" styleClass=\"form-field\"\r\n                   GridPane.rowIndex=\"2\" GridPane.columnIndex=\"1\" />\r\n\r\n        <!-- Date de début -->\r\n        <Label text=\"Date de début :\" styleClass=\"form-label\" GridPane.rowIndex=\"3\" GridPane.columnIndex=\"0\" />\r\n        <DatePicker fx:id=\"dpDateDebut\" promptText=\"JJ/MM/AAAA\" styleClass=\"form-field\"\r\n                    GridPane.rowIndex=\"3\" GridPane.columnIndex=\"1\" />\r\n\r\n        <!-- Date d'expiration -->\r\n        <Label text=\"Date d'expiration :\" styleClass=\"form-label\" GridPane.rowIndex=\"4\" GridPane.columnIndex=\"0\" />\r\n        <DatePicker fx:id=\"dpDateExpiration\" promptText=\"JJ/MM/AAAA\" styleClass=\"form-field\"\r\n                    GridPane.rowIndex=\"4\" GridPane.columnIndex=\"1\" />\r\n\r\n        <!-- Statut -->\r\n        <Label text=\"Statut :\" styleClass=\"form-label\" GridPane.rowIndex=\"5\" GridPane.columnIndex=\"0\" />\r\n        <ComboBox fx:id=\"comboStatut\" promptText=\"Sélectionnez un statut\" styleClass=\"form-field\"\r\n                  GridPane.rowIndex=\"5\" GridPane.columnIndex=\"1\" />\r\n    </GridPane>\r\n\r\n    <!-- Séparateur -->\r\n    <Separator styleClass=\"separator\" />\r\n\r\n    <!-- Boutons d'action -->\r\n    <HBox spacing=\"15\" alignment=\"CENTER_RIGHT\">\r\n        <Button fx:id=\"btnAnnuler\" text=\"Annuler\" onAction=\"#handleAnnuler\" styleClass=\"cancel-button\" />\r\n        <Button fx:id=\"btnSauvegarder\" text=\"Sauvegarder\" onAction=\"#handleSauvegarder\" styleClass=\"save-button\" />\r\n    </HBox>\r\n</VBox>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/resources/AssuranceForm.fxml b/src/main/resources/AssuranceForm.fxml
+--- a/src/main/resources/AssuranceForm.fxml	(revision e8729044c4cffd924c9f6da51db86290673097ed)
++++ b/src/main/resources/AssuranceForm.fxml	(date 1744755731189)
+@@ -32,7 +32,6 @@
+         <Label text="Type :" styleClass="form-label" GridPane.rowIndex="1" GridPane.columnIndex="0" />
+         <ComboBox fx:id="comboType" promptText="Sélectionnez un type" styleClass="form-field"
+                   GridPane.rowIndex="1" GridPane.columnIndex="1" />
+-
+         <!-- Compagnie -->
+         <Label text="Compagnie :" styleClass="form-label" GridPane.rowIndex="2" GridPane.columnIndex="0" />
+         <TextField fx:id="txtCompagnie" promptText="Nom de la compagnie" styleClass="form-field"

@@ -1,0 +1,44 @@
+/* Style pour les TitledPane dans la sidebar */
+.accordion {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+.titled-pane {
+    -fx-text-fill: white;
+    -fx-background-color: transparent;
+}
+
+.titled-pane > .title {
+    -fx-background-color: transparent;
+    -fx-text-fill: white;
+    -fx-border-color: transparent;
+    -fx-padding: 10 15;
+}
+
+.titled-pane > .title:hover {
+    -fx-background-color: rgba(255, 255, 255, 0.1);
+}
+
+.titled-pane > .title > .arrow-button .arrow {
+    -fx-background-color: white;
+}
+
+.titled-pane > .content {
+    -fx-background-color: rgba(0, 0, 0, 0.2);
+    -fx-border-color: transparent;
+}
+
+/* Style pour les boutons de la sidebar */
+.sidebar-button:hover {
+    -fx-background-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+.sidebar-button:pressed {
+    -fx-background-color: rgba(255, 255, 255, 0.2) !important;
+}
+
+/* Style pour le bouton actif */
+.sidebar-button-active {
+    -fx-background-color: #1e90ff !important;
+}
