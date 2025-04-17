@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import java.net.URL?>
+
+<VBox spacing="15" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="tn.esprit.Controllers.DoctorConsigneController" styleClass="container">
+
+    <stylesheets>
+        <URL value="@doctor/styles/assurance-styles.css"/>
+    </stylesheets>
+
+    <padding>
+        <Insets top="20" right="20" bottom="20" left="20"/>
+    </padding>
+
+    <!-- En-tête avec recherche -->
+    <HBox spacing="10" alignment="CENTER_LEFT">
+        <TextField fx:id="txtSearch" promptText="Rechercher une Consigne..." styleClass="search-field"
+                   HBox.hgrow="ALWAYS"/>
+        <Button fx:id="btnSearch" text="Rechercher" onAction="#handleSearch" styleClass="search-button"/>
+        <Button fx:id="btnRefresh" text="Actualiser" onAction="#handleRefresh" styleClass="refresh-button"/>
+
+        <HBox alignment="CENTER_RIGHT" HBox.hgrow="ALWAYS">
+            <Button fx:id="btnAddConsigne" text="+ Nouvelle Consigne" onAction="#handleAddConsigne"
+                    styleClass="add-button"/>
+        </HBox>
+    </HBox>
+
+    <!-- Contenu principal - TableView des Consignes Médicales -->
+    <TableView fx:id="consignesTable" VBox.vgrow="ALWAYS" styleClass="assurance-table">
+        <columns>
+            <TableColumn fx:id="patientColumn" text="Patient" prefWidth="180" styleClass="table-column"/>
+            <TableColumn fx:id="contentColumn" text="Contenu" prefWidth="150" styleClass="table-column"/>
+            <TableColumn fx:id="created_atColumn" text="Date" prefWidth="180" styleClass="table-column"/>
+            <TableColumn fx:id="updated_atColumn" text="Statut" prefWidth="120" styleClass="table-column"/>
+            <TableColumn fx:id="actionsColumn" text="Actions" prefWidth="150" styleClass="table-column-actions"/>
+        </columns>
+        <placeholder>
+            <Label text="Aucune consigne disponible" styleClass="no-data-label"/>
+        </placeholder>
+        <columnResizePolicy>
+            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+        </columnResizePolicy>
+    </TableView>
+
+    <!-- TableView des Ordonnances Médicales -->
+    <TableView fx:id="ordonnancesTable" VBox.vgrow="ALWAYS" styleClass="assurance-table">
+        <columns>
+            <TableColumn fx:id="productColumn" text="Produit" prefWidth="180" styleClass="table-column"/>
+            <TableColumn fx:id="dosageColumn" text="Dosage" prefWidth="150" styleClass="table-column"/>
+            <TableColumn fx:id="durationColumn" text="Durée" prefWidth="150" styleClass="table-column"/>
+        </columns>
+        <placeholder>
+            <Label text="Aucune ordonnance disponible" styleClass="no-data-label"/>
+        </placeholder>
+        <columnResizePolicy>
+            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+        </columnResizePolicy>
+    </TableView>
+</VBox>

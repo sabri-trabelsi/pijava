@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.Insets?>
+
+<BorderPane xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.esprit.Controllers.DashboardController">
+    <center>
+        <VBox spacing="20" alignment="CENTER">
+            <padding>
+                <Insets top="20" right="20" bottom="20" left="20"/>
+            </padding>
+            <Label text="Tableau de bord" style="-fx-font-size: 24px; -fx-font-weight: bold;"/>
+            <Label text="Bienvenue dans votre espace de gestion" style="-fx-font-size: 16px;"/>
+
+            <!-- Widgets du tableau de bord -->
+            <HBox spacing="20" alignment="CENTER">
+                <VBox styleClass="dashboard-card" style="-fx-background-color: white; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10, 0, 0, 1); -fx-padding: 15px; -fx-background-radius: 5px;" prefWidth="200" prefHeight="150" alignment="CENTER">
+                    <Label text="👥" style="-fx-font-size: 30px;"/>
+                    <Label text="Utilisateurs" style="-fx-font-size: 18px;"/>
+                    <Label text="120" style="-fx-font-size: 24px; -fx-font-weight: bold;"/>
+                </VBox>
+
+                <VBox styleClass="dashboard-card" style="-fx-background-color: white; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10, 0, 0, 1); -fx-padding: 15px; -fx-background-radius: 5px;" prefWidth="200" prefHeight="150" alignment="CENTER">
+                    <Label text="📅" style="-fx-font-size: 30px;"/>
+                    <Label text="Réservations" style="-fx-font-size: 18px;"/>
+                    <Label text="45" style="-fx-font-size: 24px; -fx-font-weight: bold;"/>
+                </VBox>
+
+                <VBox styleClass="dashboard-card" style="-fx-background-color: white; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10, 0, 0, 1); -fx-padding: 15px; -fx-background-radius: 5px;" prefWidth="200" prefHeight="150" alignment="CENTER">
+                    <Label text="💰" style="-fx-font-size: 30px;"/>
+                    <Label text="Remboursements" style="-fx-font-size: 18px;"/>
+                    <Label text="32" style="-fx-font-size: 24px; -fx-font-weight: bold;"/>
+                </VBox>
+            </HBox>
+        </VBox>
+    </center>
+</BorderPane>

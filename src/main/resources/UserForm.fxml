@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import java.net.URL?>
+
+<ScrollPane xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fitToWidth="true"
+            fx:controller="tn.esprit.Controllers.UserFormController">
+    <content>
+        <VBox spacing="20" styleClass="container">
+
+            <stylesheets>
+                <URL value="@styles/assurance-styles.css"/>
+            </stylesheets>
+
+            <padding>
+                <Insets top="20" right="20" bottom="20" left="20"/>
+            </padding>
+
+            <!-- Formulaire de saisie -->
+            <GridPane hgap="20" vgap="15" styleClass="form-grid"> <!-- Increased hgap from 15 to 20 -->
+                <columnConstraints>
+                    <ColumnConstraints hgrow="NEVER" minWidth="150"
+                                       prefWidth="170"/> <!-- Adjusted minWidth and prefWidth -->
+                    <ColumnConstraints hgrow="ALWAYS" minWidth="250"
+                                       prefWidth="350"/> <!-- Adjusted minWidth and prefWidth -->
+                </columnConstraints>
+
+                <!-- Name -->
+                <Label text="Name :" styleClass="form-label" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                <TextField fx:id="txtName" promptText="Name" styleClass="form-field"
+                           GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+
+                <!-- Last Name -->
+                <Label text="Last Name :" styleClass="form-label" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+                <TextField fx:id="txtLastName" promptText="Last Name" styleClass="form-field"
+                           GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+                <!-- Email -->
+                <Label text="Email :" styleClass="form-label" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+                <TextField fx:id="txtEmail" promptText="Email" styleClass="form-field"
+                           GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+                <!-- Adresse -->
+                <Label text="Adresse :" styleClass="form-label" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+                <TextField fx:id="txtAdresse" promptText="Adresse" styleClass="form-field"
+                           GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+                <!-- Num Tel -->
+                <Label text="Num Tel :" styleClass="form-label" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
+                <TextField fx:id="txtNumTel" promptText="Num Tel" styleClass="form-field"
+                           GridPane.rowIndex="4" GridPane.columnIndex="1"/>
+                <!-- Age -->
+                <Label text="Age :" styleClass="form-label" GridPane.rowIndex="5" GridPane.columnIndex="0"/>
+                <TextField fx:id="txtAge" promptText="Age" styleClass="form-field"
+                           GridPane.rowIndex="5" GridPane.columnIndex="1"/>
+                <!-- Password -->
+                <Label text="Password :" styleClass="form-label" GridPane.rowIndex="6" GridPane.columnIndex="0"/>
+                <PasswordField fx:id="txtPassword" promptText="Password" styleClass="form-field"
+                               GridPane.rowIndex="6" GridPane.columnIndex="1"/>
+                <!-- Role -->
+                <Label text="Role :" styleClass="form-label" GridPane.rowIndex="7" GridPane.columnIndex="0"/>
+                <ComboBox fx:id="comboRole" promptText="Select Role" styleClass="form-field"
+                          GridPane.rowIndex="7" GridPane.columnIndex="1"/>
+                <!-- Specialty -->
+                <Label text="Specialty :" styleClass="form-label" GridPane.rowIndex="8" GridPane.columnIndex="0"/>
+                <ComboBox fx:id="comboSpecialty" promptText="Select Specialty" styleClass="form-field"
+                          GridPane.rowIndex="8" GridPane.columnIndex="1"/>
+                <!-- Banned -->
+                <Label text="Banned :" styleClass="form-label" GridPane.rowIndex="9" GridPane.columnIndex="0"/>
+                <ComboBox fx:id="comboBanned" promptText="Banned" styleClass="form-field"
+                          GridPane.rowIndex="9" GridPane.columnIndex="1"/>
+                <!-- Enable -->
+                <Label text="Enable :" styleClass="form-label" GridPane.rowIndex="10" GridPane.columnIndex="0"/>
+                <ComboBox fx:id="comboEnable" promptText="Enable" styleClass="form-field"
+                          GridPane.rowIndex="10" GridPane.columnIndex="1"/>
+            </GridPane>
+
+            <!-- Séparateur -->
+            <Separator styleClass="separator"/>
+
+            <!-- Boutons d'action -->
+            <HBox spacing="15" alignment="CENTER_RIGHT">
+                <Button fx:id="btnAnnuler" text="Cancel" onAction="#handleAnnuler" styleClass="cancel-button"/>
+                <Button fx:id="btnSauvegarder" text="Save" onAction="#handleSauvegarder" styleClass="save-button"/>
+            </HBox>
+        </VBox>
+    </content>
+</ScrollPane>

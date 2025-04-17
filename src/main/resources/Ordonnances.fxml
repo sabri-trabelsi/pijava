@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml" fx:controller="tn.esprit.controllers.DoctorOrdonnanceController"
+            prefWidth="600" prefHeight="400">
+
+    <VBox spacing="10" padding="20">
+        <Label text="Ordonnances médicales" style="-fx-font-size: 18px; -fx-font-weight: bold;"/>
+
+        <HBox spacing="10">
+            <TextField fx:id="txtIdPatient" promptText="ID Patient"/>
+            <TextField fx:id="txtProduit" promptText="Produit"/>
+            <TextField fx:id="txtDosage" promptText="Dosage"/>
+            <TextField fx:id="txtDuree" promptText="Durée"/>
+        </HBox>
+
+        <HBox spacing="10">
+            <Button text="Ajouter" onAction="#ajouter"/>
+            <Button text="Modifier" onAction="#modifier"/>
+            <Button text="Supprimer" onAction="#supprimer"/>
+        </HBox>
+
+        <TableView fx:id="tableOrdonnances" prefHeight="200">
+            <columns>
+                <TableColumn fx:id="colProduit" text="Produit" prefWidth="200"/>
+                <TableColumn fx:id="colDate" text="Date" prefWidth="150"/>
+            </columns>
+        </TableView>
+    </VBox>
+</AnchorPane>

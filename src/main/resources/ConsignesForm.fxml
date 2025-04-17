@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import java.net.URL?>
+
+<ScrollPane xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fitToWidth="true"
+            fx:controller="tn.esprit.Controllers.DoctorConsignesFormController">
+    <content>
+        <VBox spacing="20" styleClass="container">
+
+            <stylesheets>
+                <URL value="@doctor/styles/assurance-styles.css"/>
+            </stylesheets>
+
+            <padding>
+                <Insets top="20" right="20" bottom="20" left="20"/>
+            </padding>
+
+            <!-- Formulaire de saisie -->
+            <GridPane hgap="20" vgap="15" styleClass="form-grid">
+                <columnConstraints>
+                    <ColumnConstraints hgrow="NEVER" minWidth="150" prefWidth="170"/>
+                    <ColumnConstraints hgrow="ALWAYS" minWidth="250" prefWidth="350"/>
+                </columnConstraints>
+
+                <!-- Patient -->
+                <Label text="Patient :" styleClass="form-label" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                <ComboBox fx:id="comboPatient" promptText="Select Patient" styleClass="form-field"
+                          GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+
+                <!-- Content -->
+                <Label text="Content :" styleClass="form-label" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+                <TextField fx:id="txtContent" promptText="Content" styleClass="form-field"
+                           GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+
+                <!-- Product -->
+                <Label text="Product :" styleClass="form-label" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+                <ComboBox fx:id="comboProduct" promptText="Select Product" styleClass="form-field"
+                          GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+
+                <!-- Dosage -->
+                <Label text="Dosage :" styleClass="form-label" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+                <TextField fx:id="txtDosage" promptText="Dosage" styleClass="form-field"
+                           GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+
+                <!-- Duration -->
+                <Label text="Duration :" styleClass="form-label" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
+                <TextField fx:id="txtDuration" promptText="Duration" styleClass="form-field"
+                           GridPane.rowIndex="4" GridPane.columnIndex="1"/>
+            </GridPane>
+
+            <!-- Separator -->
+            <Separator styleClass="separator"/>
+
+            <!-- Action Buttons -->
+            <HBox spacing="15" alignment="CENTER_RIGHT">
+                <Button fx:id="btnAnnuler" text="Cancel" onAction="#handleAnnuler" styleClass="cancel-button"/>
+                <Button fx:id="btnSauvegarder" text="Save" onAction="#handleSauvegarder" styleClass="save-button"/>
+            </HBox>
+        </VBox>
+    </content>
+</ScrollPane>
