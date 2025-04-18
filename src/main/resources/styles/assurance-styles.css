@@ -1,0 +1,133 @@
+
+.container {
+    -fx-background-color: #f8f9fa;
+}
+
+.assurance-table {
+    -fx-background-color: white;
+    -fx-border-color: #e1e4e8;
+    -fx-border-radius: 5px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 5, 0, 0, 3);
+}
+
+.table-column {
+    -fx-alignment: CENTER_LEFT;
+    -fx-padding: 8px;
+}
+
+.table-column-actions {
+    -fx-alignment: CENTER;
+}
+
+.search-field {
+    -fx-background-color: white;
+    -fx-border-color: #ddd;
+    -fx-border-radius: 4px;
+    -fx-padding: 8px;
+}
+
+.button {
+    -fx-padding: 8px 15px;
+    -fx-border-radius: 4px;
+    -fx-background-radius: 4px;
+    -fx-cursor: hand;
+}
+
+.search-button {
+    -fx-background-color: #455a64;
+    -fx-text-fill: white;
+}
+
+.refresh-button {
+    -fx-background-color: #607d8b;
+    -fx-text-fill: white;
+}
+
+.add-button {
+    -fx-background-color: #4caf50;
+    -fx-text-fill: white;
+}
+
+.edit-button {
+    -fx-background-color: #2196f3;
+    -fx-text-fill: white;
+    -fx-min-width: 70px;
+}
+
+.delete-button {
+    -fx-background-color: #f44336;
+    -fx-text-fill: white;
+    -fx-min-width: 70px;
+}
+
+.no-data-label {
+    -fx-text-fill: #757575;
+    -fx-font-style: italic;
+}
+
+/* Styles pour formulaire */
+.form-grid {
+    -fx-background-color: white;
+    -fx-border-color: #e1e4e8;
+    -fx-border-radius: 5px;
+    -fx-padding: 20px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 5, 0, 0, 3);
+}
+
+.form-label {
+    -fx-font-weight: bold;
+    -fx-text-fill: #455a64;
+}
+
+.form-field {
+    -fx-background-color: #f8f9fa;
+    -fx-border-color: #ddd;
+    -fx-border-radius: 4px;
+    -fx-padding: 8px;
+    -fx-max-width: infinity;
+}
+
+.separator {
+    -fx-padding: 10px 0;
+}
+
+.save-button {
+    -fx-background-color: #4caf50;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-min-width: 120px;
+}
+
+.cancel-button {
+    -fx-background-color: #9e9e9e;
+    -fx-text-fill: white;
+    -fx-min-width: 120px;
+}
+
+/* Styles pour les éléments du formulaire */
+.combo-box {
+    -fx-background-color: #f8f9fa;
+    -fx-border-color: #ddd;
+    -fx-border-radius: 4px;
+}
+
+.date-picker {
+    -fx-background-color: #f8f9fa;
+    -fx-border-color: #ddd;
+    -fx-border-radius: 4px;
+}
+
+.date-picker .arrow-button {
+    -fx-background-color: #ddd;
+    -fx-border-color: #ccc;
+}
+
+.date-picker .text-field {
+    -fx-background-color: transparent;
+}
+
+/* État de focus */
+.form-field:focused, .combo-box:focused, .date-picker:focused {
+    -fx-border-color: #2196f3;
+    -fx-effect: dropshadow(three-pass-box, rgba(33,150,243,0.3), 3, 0, 0, 0);
+}
