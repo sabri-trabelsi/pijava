@@ -185,9 +185,9 @@
                             </graphic>
                         </Button>
 
-                        <Button style="-fx-background-color: transparent;">
+                        <Button style="-fx-background-color: transparent;" onAction="#handleLogout">
                             <graphic>
-                                <Label text="✉️" style="-fx-font-size: 16px;"/>
+                                <Label text="🚪 Logout" style="-fx-font-size: 15px;"/>
                             </graphic>
                         </Button>
 

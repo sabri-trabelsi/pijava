@@ -39,7 +39,7 @@
                     </graphic>
                 </Button>
 
-                <Button styleClass="nav-button" text="Déconnexion">
+                <Button styleClass="nav-button" text="Déconnexion" onAction="#handleLogout">
                     <graphic>
                         <FontIcon iconLiteral="fas-sign-out-alt" iconSize="16" iconColor="WHITE"/>
                     </graphic>

@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TitledPane;
 import javafx.scene.layout.StackPane;
@@ -12,7 +13,12 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import javafx.stage.Stage;
+import tn.esprit.models.User;
+
 public class MainLayoutController implements Initializable {
+
+    private User currentUser;
 
     @FXML
     private StackPane contentArea;
@@ -98,6 +104,35 @@ public class MainLayoutController implements Initializable {
             contentArea.getChildren().clear();
             contentArea.getChildren().add(view);
         } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    public void setCurrentUser(User user) {
+        this.currentUser = user;
+        initializeDashboard();
+    }
+
+    private void initializeDashboard() {
+        // Initialize admin-specific UI components
+        System.out.println("Logged in as admin: " + currentUser.getEmail());
+    }
+    @FXML
+    private void handleLogout() {
+        try {
+            // Close current admin window
+            Stage currentStage = (Stage) contentArea.getScene().getWindow();
+            currentStage.close();
+
+            // Show login screen
+            Parent root = FXMLLoader.load(getClass().getResource("/Login.fxml"));
+            Stage loginStage = new Stage();
+            loginStage.setScene(new Scene(root));
+            loginStage.setTitle("DOC4U - Login");
+            loginStage.show();
+        } catch (IOException e) {
+            System.err.println("Error loading login screen: " + e.getMessage());
             e.printStackTrace();
         }
     }

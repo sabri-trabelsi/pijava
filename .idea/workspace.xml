@@ -4,7 +4,39 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f8acaa53-0932-4136-a6df-0fcb669badc1" name="Changes" comment="" />
+    <list default="true" id="f8acaa53-0932-4136-a6df-0fcb669badc1" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/tn/esprit/Controllers/Doctor/MedicalInstructionFormController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/tn/esprit/Controllers/Doctor/MedicalInstructionListController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/tn/esprit/Controllers/LoginController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/tn/esprit/Controllers/RegisterController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/tn/esprit/models/MedicalInstruction.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/tn/esprit/models/Prescription.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/tn/esprit/models/Produit.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/tn/esprit/services/MedicalInstructionService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/tn/esprit/services/ProduitService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/tn/esprit/utils/Mail.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/tn/esprit/utils/TEST.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Login.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Register.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/doctor/MedicalInstructionForm.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/doctor/MedicalInstructionView.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/tn/esprit/Controllers/DoctorDashboardController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tn/esprit/Controllers/DoctorDashboardController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/tn/esprit/Controllers/MainLayoutController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tn/esprit/Controllers/MainLayoutController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/tn/esprit/Controllers/PatientDashboardController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tn/esprit/Controllers/PatientDashboardController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/tn/esprit/Controllers/UserFormController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tn/esprit/Controllers/UserFormController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/tn/esprit/models/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tn/esprit/models/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/tn/esprit/services/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tn/esprit/services/UserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/tn/esprit/tests/MainFX.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tn/esprit/tests/MainFX.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/MainLayout.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/MainLayout.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/PatientLayout.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/PatientLayout.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/doctor/DoctorLayout.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/doctor/DoctorLayout.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/doctor/styles/assurance-styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/doctor/styles/assurance-styles.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/patient/styles/assurance-styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/patient/styles/assurance-styles.css" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -13,11 +45,11 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Interface" />
         <option value="module-info" />
         <option value="CSS File" />
-        <option value="Class" />
+        <option value="Interface" />
         <option value="FxmlFile" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -32,15 +64,17 @@
 }</component>
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/sabri-trabelsi/pijava.git&quot;,
-    &quot;accountId&quot;: &quot;c846bb8e-765d-4a3b-98b5-9a37bf9621b2&quot;
+    &quot;url&quot;: &quot;git@github.com:sabri-trabelsi/pijava.git&quot;,
+    &quot;accountId&quot;: &quot;447300c0-14e8-4482-a605-78cdad7f3a7e&quot;
   }
 }</component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 0
 }</component>
   <component name="ProjectId" id="2vh14gFnkApv8pID8bjWMV3AxAP" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -48,14 +82,16 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "Application.MainFX.executor": "Run",
+    "Application.TEST.executor": "Run",
     "Application.main.executor": "Run",
+    "Maven.pi [clean,install,-U].executor": "Run",
     "Maven.pi [clean,install].executor": "Run",
     "Maven.pi [clean].executor": "Run",
     "Maven.pi [javafx:run].executor": "Run",
     "Maven.pi [org.openjfx:javafx-maven-plugin:0.0.8:run].executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "master",
+    "git-widget-placeholder": "Consultation",
     "kotlin-language-version-configured": "true",
     "last_directory_selection": "C:/Users/user/Desktop/esprit/3a61/java/pi/src/main/java",
     "last_opened_file_path": "C:/Users/SAIF/Desktop/pijava-master/src/main/resources/doctor",
@@ -79,6 +115,7 @@
       <recent name="C:\Users\SAIF\Desktop\pijava-master\src\main\resources" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\SAIF\Desktop\pijava-master\src\main\resources\patient" />
       <recent name="C:\Users\SAIF\Desktop\pijava-master\src\main\resources\doctor" />
       <recent name="C:\Users\user\Desktop\esprit\3a61\java\pi\src\main\resources\styles" />
       <recent name="C:\Users\user\Desktop\esprit\3a61\java\pi\src\main\resources\images" />
@@ -91,6 +128,7 @@
     <option name="myCommands">
       <command value="mvn javafx:run" />
       <command value="mvn clean" />
+      <command value="mvn clean install -U" />
       <command value="mvn clean install" />
     </option>
   </component>
@@ -117,8 +155,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9823dce3aa75-28b599e66164-intellij.indexing.shared.core-IU-242.23339.11" />
-        <option value="bundled-js-predefined-d6986cc7102b-5c90d61e3bab-JavaScript-IU-242.23339.11" />
+        <option value="bundled-jdk-9823dce3aa75-28b599e66164-intellij.indexing.shared.core-IU-242.23726.103" />
+        <option value="bundled-js-predefined-d6986cc7102b-5c90d61e3bab-JavaScript-IU-242.23726.103" />
       </set>
     </attachedChunks>
   </component>
@@ -143,7 +181,13 @@
       <workItem from="1744791114032" duration="10038000" />
       <workItem from="1744810859467" duration="19980000" />
       <workItem from="1744838984981" duration="617000" />
-      <workItem from="1744840548204" duration="21444000" />
+      <workItem from="1744840548204" duration="24323000" />
+      <workItem from="1744983149696" duration="7002000" />
+      <workItem from="1745003877916" duration="15599000" />
+      <workItem from="1745147218665" duration="3679000" />
+      <workItem from="1745243118389" duration="1158000" />
+      <workItem from="1745358543114" duration="25000" />
+      <workItem from="1745361402609" duration="1395000" />
     </task>
     <servers />
   </component>

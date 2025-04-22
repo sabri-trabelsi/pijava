@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.collections.FXCollections?>
+<?import javafx.scene.text.Font?>
+
+<?import java.lang.String?>
+<AnchorPane xmlns="http://javafx.com/javafx/21"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="tn.esprit.Controllers.RegisterController">
+    <VBox alignment="CENTER" spacing="10"
+          AnchorPane.topAnchor="50" AnchorPane.bottomAnchor="50"
+          AnchorPane.leftAnchor="50" AnchorPane.rightAnchor="50">
+
+        <!-- Registration Form Content -->
+        <Label text="Register" style="-fx-font-size: 24px; -fx-font-weight: bold;"/>
+
+        <!-- Input Fields -->
+        <TextField fx:id="txtName" promptText="Name"/>
+        <TextField fx:id="txtLastName" promptText="Last Name"/>
+        <TextField fx:id="txtEmail" promptText="Email"/>
+        <PasswordField fx:id="txtPassword" promptText="Password"/>
+        <TextField fx:id="txtNumTel" promptText="Phone Number"/>
+        <TextField fx:id="txtAge" promptText="Age"/>
+        <TextField fx:id="txtAdresse" promptText="Address"/>
+
+        <!-- Fixed Role ComboBox -->
+        <ComboBox fx:id="comboRole" promptText="Select Role">
+            <items>
+                <FXCollections fx:factory="observableArrayList">
+                    <String fx:value="Patient"/>
+                    <String fx:value="Doctor"/>
+                </FXCollections>
+            </items>
+        </ComboBox>
+
+        <!-- Fixed Specialty ComboBox -->
+        <ComboBox fx:id="comboSpecialty" promptText="Specialty" visible="false">
+            <items>
+                <FXCollections fx:factory="observableArrayList">
+                    <String fx:value="Generaliste"/>
+                    <String fx:value="Psycotherapeute"/>
+                </FXCollections>
+            </items>
+        </ComboBox>
+
+        <!-- Action Buttons -->
+        <Button text="Register" onAction="#handleRegister"/>
+        <Hyperlink text="Back to Login" onAction="#handleLoginLink"/>
+        <Label fx:id="lblMessage" style="-fx-text-fill: red;"/>
+    </VBox>
+</AnchorPane>

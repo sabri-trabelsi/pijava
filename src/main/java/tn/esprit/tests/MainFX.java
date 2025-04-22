@@ -12,7 +12,7 @@ public class MainFX extends Application {
     public void start(Stage primaryStage) throws Exception {
         try {
             // Charger le layout principal avec sidebar et navbar
-            Parent root = FXMLLoader.load(getClass().getResource("/RoleSelector.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/Login.fxml"));
 
             // Configurer la scène et ajouter les styles CSS
             Scene scene = new Scene(root);

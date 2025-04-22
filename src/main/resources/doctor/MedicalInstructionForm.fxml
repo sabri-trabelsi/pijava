@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import java.net.URL?>
+
+<ScrollPane xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="tn.esprit.Controllers.Doctor.MedicalInstructionFormController">
+    <content>
+        <VBox spacing="20" styleClass="container">
+            <stylesheets>
+                <URL value="@styles/assurance-styles.css"/>
+            </stylesheets>
+
+            <GridPane hgap="15" vgap="10">
+                <Label text="Patient:" GridPane.rowIndex="0"/>
+                <ComboBox fx:id="cbPatients" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+
+                <Label text="Content:" GridPane.rowIndex="1"/>
+                <TextArea fx:id="taContent" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+
+                <Label text="Prescriptions:" GridPane.rowIndex="2"/>
+                <VBox GridPane.rowIndex="2" GridPane.columnIndex="1">
+                    <HBox spacing="10">
+                        <ComboBox fx:id="cbProducts"/>
+                        <TextField fx:id="tfDosage" promptText="Dosage"/>
+                        <TextField fx:id="tfDuration" promptText="Duration"/>
+                        <Button text="Add" onAction="#handleAddPrescription" styleClass="add-button"/>
+                    </HBox>
+                    <TableView fx:id="tvPrescriptions" styleClass="assurance-table">
+                        <columns>
+                            <TableColumn text="Product" prefWidth="150" styleClass="table-column"/>
+                            <TableColumn text="Dosage" prefWidth="100" styleClass="table-column"/>
+                            <TableColumn text="Duration" prefWidth="100" styleClass="table-column"/>
+                            <TableColumn text="Actions" prefWidth="100" styleClass="table-column-actions"/>
+                        </columns>
+                    </TableView>
+                </VBox>
+            </GridPane>
+
+            <HBox spacing="15" alignment="CENTER_RIGHT">
+                <Button text="Cancel" onAction="#handleCancel" styleClass="cancel-button"/>
+                <Button text="Save" onAction="#handleSave" styleClass="save-button"/>
+            </HBox>
+        </VBox>
+    </content>
+</ScrollPane>

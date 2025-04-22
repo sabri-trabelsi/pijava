@@ -226,4 +226,78 @@ public class UserService implements IService<User> {
         }
         return doctors;
     }
+    public User authenticate(String email, String password) {
+        String query = "SELECT * FROM user WHERE email = ?";
+        try (PreparedStatement ps = cnx.prepareStatement(query)) {
+            ps.setString(1, email);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next() && BCrypt.checkpw(password, rs.getString("password"))) {
+                User user = mapResultSetToUser(rs);
+                return (user.isEnabled() && !user.isIs_banned()) ? user : null;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    private User mapResultSetToUser(ResultSet rs) {
+        User user = new User();
+        try {
+            user.setId(rs.getInt("id"));
+            user.setName(rs.getString("name"));
+            user.setLastName(rs.getString("last_name"));
+            user.setEmail(rs.getString("email"));
+            user.setPassword(rs.getString("password"));
+            user.setNumTel(rs.getString("num_tel"));
+            user.setRole(rs.getString("role"));
+            user.setAge(rs.getInt("age"));
+            user.setAdresse(rs.getString("adresse"));
+            user.setSpecialty(rs.getString("specialty"));
+            user.setCreated_at(rs.getDate("created_at"));
+            user.setIs_banned(rs.getBoolean("is_banned"));
+            user.setEnabled(rs.getBoolean("enabled"));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return user;
+    }
+
+    public boolean emailExists(String email) {
+        String query = "SELECT COUNT(*) FROM user WHERE email = ?";
+        try (PreparedStatement ps = cnx.prepareStatement(query)) {
+            ps.setString(1, email);
+            ResultSet rs = ps.executeQuery();
+            return rs.next() && rs.getInt(1) > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public List<User> getPatients() {
+        List<User> patients = new ArrayList<>();
+        String query = "SELECT * FROM user WHERE role = 'Patient'";
+        try (Statement st = cnx.createStatement(); ResultSet rs = st.executeQuery(query)) {
+            while (rs.next()) {
+                User user = new User();
+                user.setId(rs.getInt("id"));
+                user.setName(rs.getString("name"));
+                user.setLastName(rs.getString("last_name"));
+                user.setEmail(rs.getString("email"));
+                user.setNumTel(rs.getString("num_tel"));
+                user.setRole(rs.getString("role"));
+                user.setAge(rs.getInt("age"));
+                user.setAdresse(rs.getString("adresse"));
+                user.setSpecialty(rs.getString("specialty"));
+                user.setCreated_at(rs.getDate("created_at"));
+                user.setIs_banned(rs.getBoolean("is_banned"));
+                user.setEnabled(rs.getBoolean("enabled"));
+                patients.add(user);
+            }
+        } catch (SQLException e) {
+            System.err.println("Error fetching patients: " + e.getMessage());
+        }
+        return patients;
+    }
 }

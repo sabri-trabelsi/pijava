@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
@@ -13,8 +14,12 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import javafx.stage.Stage;
+import tn.esprit.models.User;
+
 public class PatientDashboardController implements Initializable {
 
+    private User currentUser;
     @FXML
     private StackPane contentArea;
 
@@ -114,6 +119,27 @@ public class PatientDashboardController implements Initializable {
 
             contentArea.getChildren().clear();
             contentArea.getChildren().add(errorContainer);
+        }
+    }
+
+
+    public void setCurrentUser(User user) {
+        this.currentUser = user;
+        // Initialize dashboard with user data
+    }
+    @FXML
+    private void handleLogout() {
+        try {
+            Stage currentStage = (Stage) contentArea.getScene().getWindow();
+            currentStage.close();
+
+            Parent root = FXMLLoader.load(getClass().getResource("/Login.fxml"));
+            Stage loginStage = new Stage();
+            loginStage.setScene(new Scene(root));
+            loginStage.setTitle("DOC4U - Login");
+            loginStage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }

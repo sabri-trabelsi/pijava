@@ -1,6 +1,14 @@
 package tn.esprit.models;
 
+import tn.esprit.utils.ConnexionDB;
+
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class User {
     private int id;
@@ -158,5 +166,47 @@ public class User {
 
     public void setAdresse(String adresse) {
         this.adresse = adresse;
+    }
+
+    // Add this method to the User class
+    public String getFullName() {
+        return name + " " + lastName;
+    }
+    private Connection cnx = ConnexionDB.getInstance().getCnx();
+    // Add this to your existing UserService.java
+    public List<User> getPatients() {
+        List<User> patients = new ArrayList<>();
+        String query = "SELECT * FROM user WHERE role = 'Patient'";
+        try (Statement st = cnx.createStatement();
+             ResultSet rs = st.executeQuery(query)) {
+            while (rs.next()) {
+                patients.add(mapResultSetToUser(rs));
+            }
+        } catch (SQLException e) {
+            System.err.println("Error fetching patients: " + e.getMessage());
+        }
+        return patients;
+    }
+
+    private User mapResultSetToUser(ResultSet rs) {
+        User user = new User();
+        try {
+            user.setId(rs.getInt("id"));
+            user.setName(rs.getString("name"));
+            user.setLastName(rs.getString("lastName"));
+            user.setEmail(rs.getString("email"));
+            user.setPassword(rs.getString("password"));
+            user.setNumTel(rs.getString("numTel"));
+            user.setRole(rs.getString("role"));
+            user.setAge(rs.getInt("age"));
+            user.setCreated_at(rs.getDate("created_at"));
+            user.setSpecialty(rs.getString("specialty"));
+            user.setIs_banned(rs.getBoolean("is_banned"));
+            user.setEnabled(rs.getBoolean("enabled"));
+            user.setAdresse(rs.getString("adresse"));
+        } catch (SQLException e) {
+            System.err.println("Error mapping ResultSet to User: " + e.getMessage());
+        }
+        return user;
     }
 }

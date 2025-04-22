@@ -163,39 +163,52 @@ public class UserFormController implements Initializable {
 
     private boolean validerChamps() {
         StringBuilder errors = new StringBuilder();
+        String nameRegex = "^[a-zA-Z]{5,10}$"; // Name: only characters, min length 5, max length 10
+        String emailRegex = "^[A-Za-z0-9+_.-]+@(.+)$"; // Simple email validation regex
+        String numTelRegex = "^[0-9]+$"; // Only numbers
+        String passwordRegex = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$"; // At least one lowercase, one uppercase, one symbol, one number, min 8 chars
 
+        // Validate Name
+        if (txtName.getText().isEmpty() || !txtName.getText().matches(nameRegex))
+            errors.append("- Name is required, must be 5-10 characters and letters only\n");
 
-        // Validate required fields
-        if (txtName.getText().isEmpty())
-            errors.append("- Name is required\n");
+        // Validate Last Name
+        if (txtLastName.getText().isEmpty() || !txtLastName.getText().matches(nameRegex))
+            errors.append("- Last Name is required, must be 5-10 characters and letters only\n");
 
-        if (txtLastName.getText().isEmpty())
-            errors.append("- Last Name is required\n");
+        // Validate Email
+        if (txtEmail.getText().isEmpty() || !txtEmail.getText().matches(emailRegex))
+            errors.append("- Email is required and must be a valid email format\n");
 
-        if (txtEmail.getText().isEmpty())
-            errors.append("- Email is required\n");
-
+        // Validate Adresse
         if (txtAdresse.getText().isEmpty())
             errors.append("- Adresse is required\n");
 
-        if (txtNumTel.getText().isEmpty())
-            errors.append("- Num Tel is required\n");
+        // Validate Num Tel
+        if (txtNumTel.getText().isEmpty() || !txtNumTel.getText().matches(numTelRegex))
+            errors.append("- Num Tel is required and must be numbers only\n");
 
-        if (txtAge.getText().isEmpty())
-            errors.append("- Age is required\n");
+        // Validate Age
+        if (txtAge.getText().isEmpty() || !txtAge.getText().matches(numTelRegex))
+            errors.append("- Age is required and must be numbers only\n");
 
-        if (txtPassword.getText().isEmpty())
-            errors.append("- Password is required\n");
+        // Validate Password
+        if (txtPassword.getText().isEmpty() || !txtPassword.getText().matches(passwordRegex))
+            errors.append("- Password is required, must be secure (at least one uppercase, one lowercase, one digit, one special character, and minimum 8 characters)\n");
 
+        // Validate Role
         if (comboRole.getValue() == null)
             errors.append("- Role is required\n");
 
+        // Validate Specialty (if role is Doctor)
         if (comboRole.getValue() != null && comboRole.getValue().equals("Doctor") && comboSpecialty.getValue() == null)
             errors.append("- Specialty is required for role Doctor\n");
 
+        // Validate Banned Status
         if (comboBanned.getValue() == null)
             errors.append("- Banned status is required\n");
 
+        // Validate Enable Status
         if (comboEnable.getValue() == null)
             errors.append("- Enable status is required\n");
 
@@ -204,12 +217,10 @@ public class UserFormController implements Initializable {
             afficherMessage("Please fix the following errors:\n" + errors.toString(), Alert.AlertType.ERROR);
             return false;
         }
-        if (!isEditMode && txtPassword.getText().isEmpty()) {
-            errors.append("- Password is required\n");
-        }
 
         return true;
     }
+
 
     public void setUser(User user) {
         if (user != null) {
