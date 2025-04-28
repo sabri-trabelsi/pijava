@@ -300,4 +300,18 @@ public class UserService implements IService<User> {
         }
         return patients;
     }
+    public User rechercherByEmail(String email) {
+        String req = "SELECT * FROM user WHERE email=?";
+        try (PreparedStatement ps = cnx.prepareStatement(req)) {
+            ps.setString(1, email);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    return mapResultSetToUser(rs);
+                }
+            }
+        } catch (SQLException e) {
+            System.err.println("Error finding user by email: " + e.getMessage());
+        }
+        return null;
+    }
 }

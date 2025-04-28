@@ -13,4 +13,6 @@
         <Hyperlink text="Register here" onAction="#handleRegisterLink"/>
         <Label fx:id="lblMessage" style="-fx-text-fill: red;"/>
     </VBox>
+    <!-- Add this after the register hyperlink -->
+    <Hyperlink text="Forgot Password?" onAction="#handleForgotPassword"/>
 </AnchorPane>

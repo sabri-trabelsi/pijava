@@ -117,4 +117,15 @@ public class LoginController {
         lblMessage.setText(message);
         lblMessage.setStyle("-fx-text-fill: red;");
     }
+    @FXML
+    private void handleForgotPassword() {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/ResetPassword.fxml"));
+            Stage stage = (Stage) txtEmail.getScene().getWindow();
+            stage.setScene(new Scene(root));
+        } catch (IOException e) {
+            showError("Error loading password reset form");
+            e.printStackTrace();
+        }
+    }
 }
