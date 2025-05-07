@@ -1,18 +1,77 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.geometry.Insets?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1"
+<AnchorPane stylesheets="@styles/login.css" xmlns="http://javafx.com/javafx/17.0.12"
+            xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="tn.esprit.Controllers.LoginController">
-    <VBox alignment="CENTER" spacing="10" AnchorPane.topAnchor="100" AnchorPane.bottomAnchor="100" AnchorPane.leftAnchor="100" AnchorPane.rightAnchor="100">
-        <Label text="Login" style="-fx-font-size: 24px; -fx-font-weight: bold;"/>
-        <TextField fx:id="txtEmail" promptText="Email"/>
-        <PasswordField fx:id="txtPassword" promptText="Password"/>
-        <Button text="Login" onAction="#handleLogin"/>
-        <Hyperlink text="Register here" onAction="#handleRegisterLink"/>
-        <Label fx:id="lblMessage" style="-fx-text-fill: red;"/>
-    </VBox>
-    <!-- Add this after the register hyperlink -->
-    <Hyperlink text="Forgot Password?" onAction="#handleForgotPassword"/>
+
+    <GridPane alignment="CENTER_LEFT" prefWidth="1200" prefHeight="700"
+              AnchorPane.topAnchor="0" AnchorPane.bottomAnchor="0"
+              AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0">
+
+        <HBox alignment="CENTER_LEFT" styleClass="container">
+            <!-- Image Section -->
+            <StackPane styleClass="image-section" prefWidth="500" prefHeight="600">
+                <ImageView fitWidth="500" fitHeight="600" preserveRatio="true">
+                    <Image url="@images/login-bg.jpg" />
+                </ImageView>
+                <VBox alignment="CENTER" spacing="20" styleClass="image-overlay">
+                    <ImageView fitWidth="120" fitHeight="120">
+                        <Image url="@images/logo.png" />
+                    </ImageView>
+                    <Text styleClass="image-heading" text="Welcome Back" />
+                    <Text styleClass="image-subheading" text="Your Health, Our Priority" />
+                </VBox>
+            </StackPane>
+
+            <!-- Form Section -->
+            <VBox alignment="CENTER" spacing="40" styleClass="form-section" prefWidth="500" prefHeight="600">
+                <VBox alignment="CENTER" spacing="30" prefWidth="400">
+                    <Text styleClass="header-text" text="Sign In" />
+
+                    <!-- Login Form -->
+                    <VBox alignment="CENTER" spacing="20" prefWidth="350">
+                        <!-- Email Input -->
+                        <HBox alignment="CENTER_LEFT" spacing="15" styleClass="input-wrapper">
+                            <ImageView fitWidth="20" fitHeight="20">
+                                <Image url="@images/logo.png" />
+                            </ImageView>
+                            <TextField fx:id="txtEmail" promptText="Email" styleClass="modern-input" />
+                        </HBox>
+
+                        <!-- Password Input -->
+                        <HBox alignment="CENTER_LEFT" spacing="15" styleClass="input-wrapper">
+                            <ImageView fitWidth="20" fitHeight="20">
+                                <Image url="@images/logo.png" />
+                            </ImageView>
+                            <PasswordField fx:id="txtPassword" promptText="Password" styleClass="modern-input" />
+                        </HBox>
+
+                        <Button onAction="#handleLogin" styleClass="login-button" text="Sign In" />
+                        <Label fx:id="lblMessage" styleClass="error-message" />
+
+                        <!-- Social Login -->
+                        <Text styleClass="or-text" text="OR" />
+                        <Button  styleClass="google-button">
+                            <HBox alignment="CENTER" spacing="10">
+                                <ImageView fitWidth="20" fitHeight="20">
+                                    <Image url="@images/logo.png" />
+                                </ImageView>
+                                <Text text="Continue with Google" />
+                            </HBox>
+                        </Button>
+                    </VBox>
+
+                    <!-- Links -->
+                    <HBox alignment="CENTER" spacing="20">
+                        <Hyperlink onAction="#handleForgotPassword" styleClass="link" text="Forgot Password?" />
+                        <Hyperlink onAction="#handleRegisterLink" styleClass="link" text="Create Account" />
+                    </HBox>
+                </VBox>
+            </VBox>
+        </HBox>
+    </GridPane>
 </AnchorPane>
